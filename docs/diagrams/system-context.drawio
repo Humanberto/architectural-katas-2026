@@ -1,0 +1,97 @@
+<mxfile host="65bd71144e">
+    <diagram name="L1 System Context" id="ctx-1">
+        <mxGraphModel dx="1163" dy="1100" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="826" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="title" value="Von Digitalis Estates — System Context (C4 Level 1)" style="text;html=1;align=left;verticalAlign=middle;fontSize=20;fontStyle=1;fontColor=#ffffff;" parent="1" vertex="1">
+                    <mxGeometry x="60" y="24" width="620" height="34" as="geometry"/>
+                </mxCell>
+                <mxCell id="subtitle" value="Team 1-800-GOT-KATA · STRAW MAN — to be agreed in the framing call" style="text;html=1;align=left;verticalAlign=middle;fontSize=12;fontColor=#7D8A80;" parent="1" vertex="1">
+                    <mxGeometry x="60" y="56" width="620" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="p1" value="&lt;font style=&quot;color: rgb(255, 255, 255);&quot;&gt;&lt;b style=&quot;&quot;&gt;Visitor&lt;/b&gt;&lt;br&gt;&lt;i style=&quot;&quot;&gt;[Person]&lt;/i&gt;&lt;br&gt;&lt;br&gt;&lt;font style=&quot;font-size: 11px;&quot;&gt;Buys admission, visits the grounds, may return&lt;/font&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=18;fillColor=#08427B;strokeColor=#052E56;fontColor=#FFFFFF;fontSize=13;verticalAlign=middle;align=center;" parent="1" vertex="1">
+                    <mxGeometry x="60" y="120" width="200" height="110" as="geometry"/>
+                </mxCell>
+                <mxCell id="p2" value="&lt;b&gt;Keeper / Vet&lt;/b&gt;&lt;br&gt;&lt;i&gt;[Person]&lt;/i&gt;&lt;br&gt;&lt;br&gt;&lt;font style=&quot;font-size: 11px&quot;&gt;Cares for 200+ animals across 55 enclosures&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=18;fillColor=#08427B;strokeColor=#052E56;fontColor=#FFFFFF;fontSize=13;verticalAlign=middle;" parent="1" vertex="1">
+                    <mxGeometry x="300" y="120" width="200" height="110" as="geometry"/>
+                </mxCell>
+                <mxCell id="p3" value="&lt;b&gt;Estate Staff&lt;/b&gt;&lt;br&gt;&lt;i&gt;[Person]&lt;/i&gt;&lt;br&gt;&lt;br&gt;&lt;font style=&quot;font-size: 11px&quot;&gt;Operates rides, gates and grounds; deployed where needed&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=18;fillColor=#08427B;strokeColor=#052E56;fontColor=#FFFFFF;fontSize=13;verticalAlign=middle;" parent="1" vertex="1">
+                    <mxGeometry x="540" y="120" width="200" height="110" as="geometry"/>
+                </mxCell>
+                <mxCell id="p4" value="&lt;b&gt;The Countess&lt;/b&gt;&lt;br&gt;&lt;i&gt;[Person]&lt;/i&gt;&lt;br&gt;&lt;br&gt;&lt;font style=&quot;font-size: 11px&quot;&gt;Owner. Needs the estate profitable within three years&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=18;fillColor=#08427B;strokeColor=#052E56;fontColor=#FFFFFF;fontSize=13;verticalAlign=middle;" parent="1" vertex="1">
+                    <mxGeometry x="780" y="120" width="200" height="110" as="geometry"/>
+                </mxCell>
+                <mxCell id="sys" value="&lt;b style=&quot;font-size: 17px&quot;&gt;Von Digitalis Estate Platform&lt;/b&gt;&lt;br&gt;&lt;i&gt;[Software System]&lt;/i&gt;&lt;br&gt;&lt;br&gt;&lt;font style=&quot;font-size: 12px&quot;&gt;Sells admission, measures how the grounds are used, watches over animal welfare, and turns all of it into decisions the estate can act on.&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#1168BD;strokeColor=#0B4884;fontColor=#FFFFFF;fontSize=14;verticalAlign=middle;" parent="1" vertex="1">
+                    <mxGeometry x="320" y="360" width="400" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="e1" value="&lt;b&gt;Payment Provider&lt;/b&gt;&lt;br&gt;&lt;i&gt;[External System]&lt;/i&gt;&lt;br&gt;&lt;font style=&quot;font-size: 11px&quot;&gt;Card and wallet payment&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#999999;strokeColor=#6B6B6B;fontColor=#FFFFFF;fontSize=12;verticalAlign=middle;" parent="1" vertex="1">
+                    <mxGeometry x="80" y="650" width="200" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="e2" value="&lt;b&gt;AI Model Provider(s)&lt;/b&gt;&lt;br&gt;&lt;i&gt;[External System]&lt;/i&gt;&lt;br&gt;&lt;font style=&quot;font-size: 11px&quot;&gt;Hosted language and vision models. Assume price change or shutdown.&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#999999;strokeColor=#6B6B6B;fontColor=#FFFFFF;fontSize=12;verticalAlign=middle;" parent="1" vertex="1">
+                    <mxGeometry x="420" y="650" width="200" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="e3" value="&lt;b&gt;Messaging Provider&lt;/b&gt;&lt;br&gt;&lt;i&gt;[External System]&lt;/i&gt;&lt;br&gt;&lt;font style=&quot;font-size: 11px&quot;&gt;Email and push for tickets and alerts&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#999999;strokeColor=#6B6B6B;fontColor=#FFFFFF;fontSize=12;verticalAlign=middle;" parent="1" vertex="1">
+                    <mxGeometry x="760" y="650" width="200" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="r1" value="Buys tickets and family passes,&#xa;plans a visit" style="endArrow=blockThin;html=1;rounded=0;fontSize=11;fontColor=#404040;strokeColor=#707070;strokeWidth=1.5;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.1;entryY=0;entryDx=0;entryDy=0;" parent="1" source="p1" target="sys" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="r2" value="Reviews welfare alerts,&#xa;confirms or dismisses them" style="endArrow=blockThin;html=1;rounded=0;fontSize=11;fontColor=#404040;strokeColor=#707070;strokeWidth=1.5;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.35;entryY=0;entryDx=0;entryDy=0;" parent="1" source="p2" target="sys" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="r3" value="Reads footfall,&#xa;receives staffing guidance" style="endArrow=blockThin;html=1;rounded=0;fontSize=11;fontColor=#404040;strokeColor=#707070;strokeWidth=1.5;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.65;entryY=0;entryDx=0;entryDy=0;" parent="1" source="p3" target="sys" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="r4" value="Reads revenue, popularity&#xa;and welfare reporting" style="endArrow=blockThin;html=1;rounded=0;fontSize=11;fontColor=#404040;strokeColor=#707070;strokeWidth=1.5;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.9;entryY=0;entryDx=0;entryDy=0;" parent="1" source="p4" target="sys" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="r5" value="Takes payment&#xa;[HTTPS]" style="endArrow=blockThin;html=1;rounded=0;fontSize=11;fontColor=#404040;strokeColor=#707070;strokeWidth=1.5;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="sys" target="e1" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="r6" value="Sends inference requests&#xa;[HTTPS, via model gateway]" style="endArrow=blockThin;html=1;rounded=0;fontSize=11;fontColor=#404040;strokeColor=#707070;strokeWidth=1.5;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="sys" target="e2" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="r7" value="Sends confirmations&#xa;and alerts [SMTP / push]" style="endArrow=blockThin;html=1;rounded=0;fontSize=11;fontColor=#404040;strokeColor=#707070;strokeWidth=1.5;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="sys" target="e3" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="keybox" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#B3BCB6;" parent="1" vertex="1">
+                    <mxGeometry x="790" y="360" width="290" height="200" as="geometry"/>
+                </mxCell>
+                <mxCell id="keytitle" value="&lt;b&gt;KEY&lt;/b&gt;" style="text;html=1;align=left;verticalAlign=middle;fontSize=12;fontColor=#ffffff;" parent="1" vertex="1">
+                    <mxGeometry x="806" y="372" width="100" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="k1" value="" style="rounded=1;whiteSpace=wrap;html=1;arcSize=30;fillColor=#08427B;strokeColor=#052E56;" parent="1" vertex="1">
+                    <mxGeometry x="806" y="404" width="34" height="24" as="geometry"/>
+                </mxCell>
+                <mxCell id="k1t" value="Person" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;fontColor=#4B5A50;" parent="1" vertex="1">
+                    <mxGeometry x="850" y="404" width="220" height="24" as="geometry"/>
+                </mxCell>
+                <mxCell id="k2" value="" style="rounded=1;whiteSpace=wrap;html=1;arcSize=15;fillColor=#1168BD;strokeColor=#0B4884;" parent="1" vertex="1">
+                    <mxGeometry x="806" y="440" width="34" height="24" as="geometry"/>
+                </mxCell>
+                <mxCell id="k2t" value="Software system — in scope" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;fontColor=#4B5A50;" parent="1" vertex="1">
+                    <mxGeometry x="850" y="440" width="220" height="24" as="geometry"/>
+                </mxCell>
+                <mxCell id="k3" value="" style="rounded=1;whiteSpace=wrap;html=1;arcSize=15;fillColor=#999999;strokeColor=#6B6B6B;" parent="1" vertex="1">
+                    <mxGeometry x="806" y="476" width="34" height="24" as="geometry"/>
+                </mxCell>
+                <mxCell id="k3t" value="External system — not ours to build" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;fontColor=#4B5A50;" parent="1" vertex="1">
+                    <mxGeometry x="850" y="476" width="220" height="24" as="geometry"/>
+                </mxCell>
+                <mxCell id="k4" value="" style="endArrow=blockThin;html=1;rounded=0;strokeColor=#707070;strokeWidth=1.5;" parent="1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="806" y="524" as="sourcePoint"/>
+                        <mxPoint x="840" y="524" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="k4t" value="Interaction, labelled with purpose&#xa;and protocol where it matters" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;fontColor=#4B5A50;" parent="1" vertex="1">
+                    <mxGeometry x="850" y="510" width="220" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="note" value="&lt;b&gt;Open questions for the framing call&lt;/b&gt;&lt;br&gt;• Is the model provider one box or several?&lt;br&gt;• Do we show the estate/cloud boundary at L1, or leave it to L2?&lt;br&gt;• Does &quot;Estate Staff&quot; split into ride operators and grounds?" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFF6D6;strokeColor=#C9B457;fontSize=11;align=left;verticalAlign=top;spacing=8;fontColor=#4B4326;" parent="1" vertex="1">
+                    <mxGeometry x="60" y="360" width="230" height="130" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
