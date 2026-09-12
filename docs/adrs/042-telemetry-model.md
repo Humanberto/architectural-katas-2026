@@ -126,7 +126,6 @@ The following are deliberately excluded and recorded elsewhere.
   the AI platform records.
 - Camera-based piranha counting and the animal welfare model. See ADR-043
   and ADR-046.
-- Camera-based piranha counting and the animal welfare model. See ADR-041 and ADR-043.
 - Behaviour when a gateway or the uplink is unavailable. See ADR-044.
 - Visitor and footfall analytics beyond the topic namespace reserved above.
 
