@@ -10,7 +10,7 @@ While the estate is cut off, the estate's own record is the real one. When the c
 
 ## Why we need to decide this
 
-Wifi across the park is patchy (C1) and the route from the estate to the cloud is ours to design (C2). The system has to keep working while cut off (R15).
+Wifi across the park is patchy ([C1](https://github.com/Humanberto/architectural-katas-2026/blob/main/docs/requirements.md#:~:text=Source-,C1,-Wifi%20coverage%20across)) and the route from the estate to the cloud is ours to design ([C2](https://github.com/Humanberto/architectural-katas-2026/blob/main/docs/requirements.md#:~:text=stated-,C2,-Cloud%20is%20permitted)). The system has to keep working while cut off ([R15](https://github.com/Humanberto/architectural-katas-2026/blob/main/docs/requirements.md#:~:text=R15,from%20the%20cloud)).
 
 A **partition** is when part of the system cannot talk to the rest. During one, two copies of the truth exist. This record covers what still works while that lasts, and what happens to both copies afterwards.
 
@@ -84,6 +84,6 @@ Missing readings must never look like a quiet period where nothing happened. Any
 
 ## Related
 
-- **ADR-040** put the broker and buffering on the estate, which is what makes this possible
-- **ADR-042** defines which readings are buffered and which are guaranteed
-- **ADR-043** defines the alerts this suppresses and summarises
+- **[ADR-040](https://github.com/Humanberto/architectural-katas-2026/blob/main/docs/adrs/040-connectivity-topology.md)** put the broker and buffering on the estate, which is what makes this possible
+- **[ADR-042](https://github.com/Humanberto/architectural-katas-2026/blob/main/docs/adrs/042-telemetry-model.md)** defines which readings are buffered and which are guaranteed
+- **[ADR-043](https://github.com/Humanberto/architectural-katas-2026/blob/main/docs/adrs/043-welfare-loop.md)** defines the alerts this suppresses and summarises
