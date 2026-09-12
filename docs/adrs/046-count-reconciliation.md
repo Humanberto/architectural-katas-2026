@@ -24,14 +24,26 @@ The system compares that number against the camera's count for the same period a
 
 If the difference sits inside the tolerance for that enclosure, nothing happens. If it sits outside, a reconciliation task goes to the keeper.
 
+## Counting through muddy water
+
+The lagoon is turbid. Underwater visibility is a few inches at best, so a submerged camera would return sediment rather than fish. That rules out the obvious approach.
+
+Two things are still observable. The piranhas jump, and they feed at the surface, so a camera mounted above the water sees real activity without having to see through anything.
+
+Acoustic imaging is the only method that genuinely counts fish in water this murky. We are not proposing it. The hardware, the underwater housing, the armoured cabling needed against a species that bites cables, and the expertise to operate it are all far beyond a family estate with one IT person (C13) and a budget for MQTT devices (C3, C14).
+
+So the camera in this record is a surface camera. It counts fish visible at the surface during a feed, which undercounts the population by an unknown amount. That is acceptable, because we never use it as the population figure. We use it as a second opinion to check the keeper's count against, and an undercount that stays consistent is still useful the moment it stops being consistent.
+
 ## The two directions mean different things
 
-| Camera count | Possible causes | What happens |
-|---|---|---|
-| **Lower than the ledger** | An animal is dead, missing or escaped. Or the model is under-counting because the water is murky, fish are behind rocks, or the light is poor | Treated as a welfare concern. Keeper does a physical check. If the animals are all present, we have a model problem, not an animal problem |
-| **Higher than the ledger** | The piranhas have bred and there are fry. Or the model is double-counting. Or the ledger is out of date | Treated as a data question, not an emergency. Keeper confirms. If there are fry, the ledger is updated and the birth is recorded |
+Because the surface count is always a fraction of the real population, we compare the ratio between the two numbers rather than the raw difference. Once that ratio settles for an enclosure, a change in it is what matters.
 
-The asymmetry matters. A count that is too low might mean something is wrong with an animal. A count that is too high usually means something good has happened, or that a number needs correcting. They should not arrive with the same urgency.
+| Surface count, against its usual ratio | Possible causes | What happens |
+|---|---|---|
+| **Falls** | An animal is dead, missing or escaped. Or fewer fish are coming up to feed, which is itself a welfare signal. Or the model is under-counting because the water is murkier than usual or the light is poor | Treated as a welfare concern. Keeper does a physical check. If the animals are all present, we have a model problem, not an animal problem |
+| **Rises** | The piranhas have bred and there are fry. Or the model is double-counting. Or the ledger is out of date | Treated as a data question, not an emergency. Keeper confirms. If there are fry, the ledger is updated and the birth is recorded |
+
+The asymmetry matters. A ratio that falls might mean something is wrong with an animal. A ratio that rises usually means something good has happened, or that a number needs correcting. They should not arrive with the same urgency.
 
 ## What the pattern tells us
 
@@ -54,6 +66,7 @@ The camera count never overwrites the keeper's number, and the keeper's number n
 | A keeper types the count | Photographing the ledger and reading it with a vision model | Ten seconds of a keeper's time per round, and the check only happens as often as they do it |
 | The keeper's number is the record | Trusting the camera because it counts far more often | We only find out the model is wrong as often as someone counts by hand |
 | We investigate in both directions | Only reacting when the count drops | Breeding will trigger investigations that turn out to be good news |
+| A camera above the water | Acoustic imaging, the only thing that sees through turbid water | We get an undercount rather than a census, and the signal depends on the fish surfacing to feed |
 
 ## What this gives us
 
@@ -64,7 +77,7 @@ The camera count never overwrites the keeper's number, and the keeper's number n
 
 ## Still to settle
 
-- **Tolerance per enclosure.** How far apart the two numbers can be before it means anything depends on the species, the water and the enclosure. A keeper should set it, not us.
+- **Tolerance per enclosure.** How far the ratio can move before it means anything depends on the species, the water and the enclosure. A keeper should set it, not us. It also cannot be set until the ratio has been observed for long enough to have a normal.
 - **How often keepers count.** We assume this fits an existing round rather than adding a new task. Worth confirming with a keeper before we commit to it.
 
 ## Related
