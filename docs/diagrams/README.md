@@ -16,6 +16,7 @@ To edit one, edit the fenced block. To add one, copy an existing file.
 | _06 Presence and flow_ | Counting without identifying | C |
 | _07 Ride condition_ | Sensing, advisory, and the inspection boundary | D |
 | _08 Concierge offline behaviour_ | What is cached and what needs signal | D |
+| [09 Pass lifecycle](09-pass-lifecycle.md) | States a pass moves through, and what the gate does in each | A |
 
 Italics are not yet drawn. 01 to 03 are strawmen — argue with them.
 
@@ -81,6 +82,17 @@ a model and on the estate, colour it by tier — the estate placement is usually
 from which subgraph it sits in.
 
 Paste the eight `classDef` lines verbatim into any new diagram.
+
+## State diagrams
+
+The shapes and colours above describe components: things we build, people, stores, models,
+devices, third parties. A state diagram has none of those — its boxes are states of one
+thing — so the key does not apply to it.
+
+Leave state diagrams uncoloured. Carry the meaning in transition labels and notes instead.
+Reusing the tier colours would be actively misleading: amber means "Tier 2, perceptual" and
+nothing else, and a state coloured amber in a diagram with no model in it invites exactly
+the wrong reading. [09](09-pass-lifecycle.md) is the example to copy.
 
 ## House rules
 
