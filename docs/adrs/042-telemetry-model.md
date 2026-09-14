@@ -122,8 +122,7 @@ This closes a gap that is easy to miss. A dead sensor and a healthy animal in a 
 
 The following are deliberately excluded and recorded elsewhere.
 
-- Where inference on this data runs, at the edge or in the cloud. Covered by
-  the AI platform records.
+- Where inference on this data runs, at the edge or in the cloud. See the AI platform ADRs (020–039).
 - Camera-based piranha counting and the animal welfare model. See ADR-043
   and ADR-046.
 - Behaviour when a gateway or the uplink is unavailable. See ADR-044.
