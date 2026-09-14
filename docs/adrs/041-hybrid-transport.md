@@ -4,150 +4,143 @@
 
 Proposed. Amends the first two tiers of ADR-040.
 
-## The decision
+## Context
 
-Sensors reach the estate over LoRaWAN, a radio built to carry very little data a very long
-way. Cameras and anything the system switches on stay on wifi. Both paths arrive as MQTT
-messages at a single box on the estate that is the broker, the LoRaWAN network server and
-the estate server together.
+ADR-040 placed satellite brokers around the park so that every sensor had one within radio
+range. This addressed patchy wifi coverage (C1) by distributing hardware.
 
-## Why we are changing part of 040
+A better option is to change the radio the sensors use. LoRaWAN carries small messages over
+long distances at low power, typically a few hundred bytes per message and several kilometres
+of range. An enclosure reading is well within that limit.
 
-ADR-040 scattered small brokers around the park so that every sensor had one in radio range.
-That solved patchy wifi (C1) by spending hardware. The radio solves it better.
+The significant effect is that the coverage requirement moves. Under ADR-040, all 55
+enclosures (C5) needed network coverage. Under this decision, only the gateways do, and
+gateways can be placed where power and a network connection already exist.
 
-LoRaWAN trades bandwidth for range. A few dozen bytes, several kilometres, through walls,
-on a battery that lasts years. An enclosure reading is a few dozen bytes, so the trade is
-exactly the one we want.
+LoRaWAN and MQTT operate at different layers and are not alternatives. LoRaWAN is the radio
+link to the sensor. MQTT is the application protocol from the gateway onward. Commercial
+LoRaWAN gateways generally publish directly to MQTT.
 
-The important consequence is not the radio. It is that **the coverage problem moves**. Before,
-55 enclosures each needed to reach a network. Now only the gateways do, and gateways can be
-sited where power and backhaul already exist. Two hard places instead of fifty-five.
+## Decision
 
-## What runs on what
+Sensors report over LoRaWAN. Cameras and any equipment the system controls use estate wifi or
+a wired connection. Both paths deliver MQTT messages to a single machine on the estate that
+runs the broker, the LoRaWAN network server and the estate server.
 
-| Carries | Over | Why |
+| Traffic | Transport | Reason |
 |---|---|---|
-| Enclosure readings, containment state, feed weights, footfall counts | LoRaWAN | Tiny, frequent, and coming from places wifi does not reach |
-| Camera results and clips | Estate wifi | A LoRaWAN message cannot hold an image |
-| Commands to misters, lamps, pumps, coolers | Estate wifi or wired | LoRaWAN cannot take a command promptly. See below |
-| Everything, once it has landed | MQTT on the estate | One topic tree, one set of delivery rules, per ADR-042 |
-| Batched uploads to the cloud | The estate's single uplink | When it is up. Never on the alert path |
+| Enclosure readings, containment state, feed weights, visitor counts | LoRaWAN | Small, frequent, and originating where wifi is unreliable |
+| Camera results and image files | Estate wifi | A LoRaWAN message cannot carry an image |
+| Commands to misters, lamps, coolers and pumps | Estate wifi or wired | LoRaWAN cannot deliver a command promptly |
+| All of the above, once received | MQTT | One topic tree and one set of delivery rules, per ADR-042 |
+| Batched uploads to the cloud | The estate uplink | Only when available, and never on the alert path |
 
-LoRaWAN and MQTT are not alternatives. LoRaWAN is the last hop to a sensor; MQTT is
-everything from the gateway inward. The gateway is the bridge, and most commercial gateways
-publish straight onto MQTT.
+### Cameras publish results rather than images
 
-## The camera does not send video
+A camera performs its counting locally or on the estate server and publishes the result: a
+count, a confidence value and a model version. Image files remain on the estate and are
+uploaded only when a keeper disputes a count or the model reports low confidence. Those
+uploads use HTTP rather than the broker, because MQTT is a message bus and a queue of large
+files would consume broker memory.
 
-A clip is megabytes. A count is forty bytes.
+This follows the rule already set in ADR-040: anything with a consequence in minutes runs on
+the estate.
 
-So the camera does the counting where it is, or on the estate server, and publishes the
-result: a number, a confidence, a model version. The clip stays on the estate. It is uploaded
-only when a keeper disputes a count or the model flags itself as uncertain, and then over
-HTTP rather than through the broker, because a message bus is not a media pipe and a backlog
-of queued clips would sit in broker memory.
+### Commands do not use LoRaWAN
 
-When the uplink is down, results still reach the keeper. Clips wait. Neither is urgent.
+A standard LoRaWAN device listens for a reply only in two short windows immediately after it
+transmits. This is adequate for configuration changes and inadequate for operating equipment
+in response to a reading.
 
-This is the same rule ADR-040 already set: if failure to act within minutes has a
-consequence, it happens on the estate.
+Equipment the system may switch on is therefore connected by wifi or cable. An enclosure that
+cannot be given that connection receives alerts instead of automatic remediation. The question
+of what may act at all remains with ADR-043.
 
-## Commands do not travel on LoRaWAN
+### Number of gateways
 
-An ordinary LoRaWAN device listens for a reply only in two short windows just after it
-transmits. That is fine for "your settings changed, apply them next time". It is not fine
-for "turn the backup pump on now".
+The brief gives no estate dimensions, so we are not proposing a number. A LoRaWAN gateway
+typically covers several kilometres in open ground and under one kilometre where buildings and
+vegetation obstruct the signal. An estate with 40 rides and 55 enclosures is likely to fall
+within the range of a single gateway.
 
-So anything the system may switch on is reached over wifi or a wired run. That makes it a
-siting requirement: an enclosure with controllable equipment in it needs that connection, and
-an enclosure that cannot have one gets alerts rather than automatic remediation. The
-authority question — what may act at all — stays in ADR-043.
+Our planning assumption is two gateways, positioned for power and backhaul rather than for
+coverage alone, so that the failure of one does not stop all sensor traffic. The final number
+requires a site survey.
 
-## How many gateways
+Capacity is not a limiting factor. Several hundred sensors reporting at quarter-hourly
+intervals is well within the throughput of one gateway.
 
-We do not know, and the brief gives no dimensions, so we will not invent a number.
+### The network server runs on the estate
 
-What we can say: a gateway covers kilometres in the open and something under one kilometre
-among buildings and trees. An estate with 40 rides, 55 enclosures, a lagoon and a house is
-a large park, not a region. One gateway probably covers it.
+LoRaWAN requires a network server to manage device joins, keys and message decoding. It is
+commonly run as a cloud service. That arrangement would make sensor data unreadable whenever
+the uplink was down, which conflicts with R15.
 
-**Planning assumption: two.** The second is not for range. It is for the lagoon sitting low
-behind its bank, the stone menagerie, and the Venom House walls, and it means one failed
-gateway does not leave the estate deaf. Final count is a site survey output, sited for power
-and backhaul rather than for radio.
+It therefore runs on the estate machine alongside the broker. This adds a component for the
+single IT staff member (C13) to maintain.
 
-Capacity is not the constraint. A few hundred sensors reporting every fifteen minutes is
-well inside what one gateway handles. Geometry is the constraint, and geometry cannot be
-settled from a map.
+## Consequences
 
-## The network server lives on the estate
-
-LoRaWAN needs a network server to handle joins, keys and decoding. Run as a cloud service,
-which is the common way, sensor data would stop being readable the moment the uplink dropped.
-That would break the one thing this architecture exists to protect (R15).
-
-So it runs on the estate box, beside the broker. One more thing for one IT person (C13) to
-look after, and the price of staying operable when the estate is cut off.
-
-## What we chose, and what it cost us
-
-| We chose | Instead of | What it costs us |
+| Decision | Alternative | Cost |
 |---|---|---|
-| LoRaWAN for the sensor hop | Wifi sensors reaching scattered satellite brokers | A second radio on the estate, with its own gateways, keys and vocabulary |
-| One box: broker, network server, estate server | Distributed brokers per zone | Every reading depends on one machine. It fails and the estate is deaf until someone swaps it |
-| Cameras publish results, not frames | Streaming video to the estate or the cloud | We cannot look back at footage we never kept, so a disputed count is only answerable if the clip was retained locally |
-| Wifi kept for cameras and equipment | LoRaWAN everywhere | Wifi does not go away. It still has to reach the lagoon camera and every enclosure with a mister in it |
-| A planning assumption rather than a number | A confident gateway count | The design is not finished until someone walks the estate with a signal meter |
+| LoRaWAN for the sensor link | Wifi sensors reporting to distributed satellite brokers | A second radio technology on the estate, with its own gateways, key management and operational knowledge |
+| One machine running broker, network server and estate server | Distributed brokers by zone | All sensor traffic depends on one machine, and an outage stops reception until it is replaced |
+| Cameras publish results, not images | Streaming video to the estate or the cloud | Footage that was not retained cannot be reviewed, so a disputed count is only answerable if the file was kept |
+| Wifi retained for cameras and equipment | LoRaWAN throughout | Wifi coverage remains a requirement wherever a camera or controllable equipment is installed |
+| A planning assumption rather than a fixed count | A stated number of gateways | The design is incomplete until a survey is carried out |
 
-## The single point of failure
+### The single point of failure
 
-ADR-040 named the central broker as its largest open risk. Collapsing to one box makes that
-sharper, and we would rather say so than bury it.
+ADR-040 identified the central broker as its largest open risk. Consolidating to one machine
+increases that exposure.
 
-Two things make it tolerable. One machine is something a single IT person can keep a spare
-for, and swapping a spare in is a job they can actually do; four boxes in hedges are four
-things to find and four things to forget. And LoRaWAN sensors buffer their own readings, so
-an outage of minutes to hours is a delay in the record rather than a hole in it.
+Two factors reduce it. A single machine can be kept as a spare and replaced by one person,
+whereas four distributed devices are four separate maintenance obligations. LoRaWAN sensors
+also buffer their own readings, so an outage of hours delays the record rather than losing it.
 
-If there were budget for one piece of redundancy on this estate, it is a second estate box.
+If budget existed for one piece of redundancy, a second estate machine would be the
+appropriate choice.
 
-## Budget
+### Budget
 
-The brief funds MQTT-capable devices throughout the park (C3) and is silent beyond that (C14).
-LoRaWAN sensors and gateways are a different bill of materials, so this needs arguing.
+The brief funds MQTT-capable devices throughout the park (C3) and is silent on anything beyond
+that (C14). LoRaWAN sensors and gateways are a different specification and require
+justification.
 
-The case is that it is a swap rather than an addition: two gateways instead of four satellite
-brokers, and battery sensors instead of devices needing mains power or frequent visits into
-restricted enclosures (C10). We believe that is cheaper to buy and considerably cheaper to
-run. We cannot prove it from the brief and we are flagging it as an assumption.
+The argument is that this is a substitution rather than an addition: two gateways in place of
+four satellite brokers, and battery-powered sensors in place of devices requiring mains power
+or frequent visits to restricted enclosures (C10). We expect this to cost less to install and
+significantly less to operate. The brief does not contain the figures to prove it, so this
+remains an assumption.
 
-## Alternatives we rejected
+## Alternatives considered
 
-**Keep the tiered topology unchanged.** It works and it was already written. Rejected because
-it spends hardware to solve a problem the radio solves better, and four outdoor devices on an
-estate with one IT person are four quiet failures waiting to happen.
+**Retain the tiered topology unchanged.** It is workable and already documented. Rejected
+because it uses hardware to solve a coverage problem that the radio addresses more directly,
+and because four outdoor devices represent four maintenance obligations for one IT staff
+member (C13).
 
-**Wifi everywhere, properly.** Blanket the park in access points. Rejected on cost and on the
-fabric: the rides and buildings are historically important and physical modification is
-limited (C7), and mains power at every enclosure is not a given.
+**Full wifi coverage.** Install sufficient access points to cover the park. Rejected on cost
+and on the constraint that the rides and buildings are historically important with limited
+scope for physical modification (C7). Mains power at every enclosure also cannot be assumed.
 
-**Cellular or NB-IoT per sensor.** No estate infrastructure at all. Rejected because it puts
-a recurring per-device bill on an estate that cannot pay its own way (P1), and makes animal
-welfare alarms depend on an outside carrier.
+**Cellular or NB-IoT for each sensor.** This removes the need for estate infrastructure
+entirely. Rejected because it introduces a recurring per-device cost to an estate that is
+currently unprofitable (P1), and makes welfare alarms dependent on an external carrier.
 
-## Still to settle
+## Open questions
 
-- **Gateway siting.** A survey, not a map exercise.
-- **Message budget.** A LoRaWAN device may only transmit for a small fraction of each hour.
-  The intervals in ADR-042 need checking against that before we commit to them.
-- **Whether containment sensors belong on LoRaWAN at all.** They are the one stream where
-  seconds matter. A wired run may be the honest answer, and it is a small number of doors.
+- Gateway siting and final count, which require a site survey.
+- Message budget. A LoRaWAN device may transmit for only a small proportion of each hour, and
+  the intervals in ADR-042 need to be checked against that limit.
+- Whether containment sensors should use LoRaWAN at all. They are the only stream where
+  response time is measured in seconds, and a wired connection may be more appropriate for the
+  small number of doors involved.
 
 ## Related
 
 - **ADR-040** established what runs on the estate and what runs in the cloud. Unchanged.
-- **ADR-042** defines the topic tree and delivery guarantees, now fed by two transports.
-- **ADR-043** defines what may act automatically, and is affected by the command path above.
-- **ADR-046** depends on camera results rather than camera frames.
-- **ADR-047** adds the weather and equipment streams that ride the same transports.
+- **ADR-042** defines the topic structure and delivery guarantees for both transports.
+- **ADR-043** defines what may act automatically, and depends on the command path above.
+- **ADR-046** depends on camera results rather than camera images.
+- **ADR-047** adds weather and equipment streams using the same transports.
