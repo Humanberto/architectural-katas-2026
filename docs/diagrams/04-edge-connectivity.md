@@ -6,6 +6,7 @@ How a reading reaches the estate, and what keeps working when the estate loses i
 to the outside world.
 
 ```mermaid
+%%{init: {'flowchart': {'nodeSpacing': 55, 'rankSpacing': 75, 'curve': 'basis', 'padding': 12}}}%%
 flowchart LR
 
   subgraph enclosures["In the enclosures"]
