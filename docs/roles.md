@@ -1,5 +1,7 @@
 # Roles and working agreement
 
+**Go straight to:** [Home](../README.md) · [ADRs](adrs/README.md) · [Diagrams](diagrams/README.md) · [Implementation](implementation.md) · [Requirements](requirements.md) · [Characteristics](architecture-characteristics.md) · [Brief](kata-brief.pdf)
+
 Team of four. A working document for the team, not a submission artefact — but it lives in the repo so
 everyone is reading the same version.
 
@@ -118,3 +120,9 @@ Two ideas; everything else is negotiable.
   — it is the file most likely to conflict otherwise.
 - Every ADR needs at least two rejected alternatives and why they lost. An ADR that only
   states a decision scores nothing on the criterion it exists to satisfy.
+
+---
+
+<p align="center">❦</p>
+
+<p align="right"><a href="#roles-and-working-agreement">↑ Back to top</a> · <a href="../README.md">Home</a> · <a href="adrs/README.md">All ADRs</a> · <a href="diagrams/README.md">All diagrams</a></p>

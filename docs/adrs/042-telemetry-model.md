@@ -1,5 +1,7 @@
 # 042. Telemetry model, topic taxonomy, and delivery guarantees
 
+**Go straight to:** [Home](../../README.md) · [ADRs](README.md) · [Diagrams](../diagrams/README.md) · [Implementation](../implementation.md) · [Requirements](../requirements.md) · [Characteristics](../architecture-characteristics.md) · [Brief](../kata-brief.pdf)
+
 ## Status
 
 Proposed
@@ -159,3 +161,9 @@ The intervals above are estimates. They come from general practice rather than f
 Dissolved oxygen, containment and lamp state sensors are available as MQTT-capable devices, or can be attached to one, and therefore sit inside the funded baseline (C3, C14).
 
 Safe ranges for each measure come from keepers with species knowledge, not from this team.
+
+---
+
+<p align="center">❦</p>
+
+<p align="right"><a href="#042-telemetry-model-topic-taxonomy-and-delivery-guarantees">↑ Back to top</a> · <a href="../../README.md">Home</a> · <a href="README.md">All ADRs</a> · <a href="../diagrams/README.md">All diagrams</a></p>

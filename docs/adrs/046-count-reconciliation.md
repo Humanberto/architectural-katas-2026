@@ -1,5 +1,7 @@
 # 046. Checking the animal count against the keepers' ledger
 
+**Go straight to:** [Home](../../README.md) · [ADRs](README.md) · [Diagrams](../diagrams/README.md) · [Implementation](../implementation.md) · [Requirements](../requirements.md) · [Characteristics](../architecture-characteristics.md) · [Brief](../kata-brief.pdf)
+
 ## Status
 
 Proposed
@@ -129,3 +131,9 @@ Counts continue during a cloud outage, since the camera counts on the estate
 - **[ADR-043](043-welfare-loop.md)** what happens when a count suggests an animal is unwell
 - **[ADR-044](044-disconnected-operation.md)** what happens to counts recorded while cut off
 - **[ADR-047](047-environment-and-weather.md)** applies the same recording rules more widely
+
+---
+
+<p align="center">❦</p>
+
+<p align="right"><a href="#046-checking-the-animal-count-against-the-keepers-ledger">↑ Back to top</a> · <a href="../../README.md">Home</a> · <a href="README.md">All ADRs</a> · <a href="../diagrams/README.md">All diagrams</a></p>

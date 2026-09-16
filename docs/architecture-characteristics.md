@@ -1,5 +1,7 @@
 # Architectural characteristics
 
+**Go straight to:** [Home](../README.md) · [ADRs](adrs/README.md) · [Diagrams](diagrams/README.md) · [Implementation](implementation.md) · [Requirements](requirements.md) · [Characteristics](architecture-characteristics.md) · [Brief](kata-brief.pdf)
+
 What we are optimising for, in order, and what we are deliberately giving up. Every ADR
 in this repository should be traceable to something on this page. If a decision
 contradicts this document, one of the two is wrong and we should say which.
@@ -104,3 +106,8 @@ forecasting problems, and treating them as such is cheaper, more verifiable, and
 when the network does not. This is stated properly in
 [011](adrs/011-ai-determinism-tiers.md).
 
+---
+
+<p align="center">❦</p>
+
+<p align="right"><a href="#architectural-characteristics">↑ Back to top</a> · <a href="../README.md">Home</a> · <a href="adrs/README.md">All ADRs</a> · <a href="diagrams/README.md">All diagrams</a></p>

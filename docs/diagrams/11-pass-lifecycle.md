@@ -1,5 +1,7 @@
 # 11. Pass lifecycle
 
+**Go straight to:** [Home](../../README.md) · [ADRs](../adrs/README.md) · [Diagrams](README.md) · [Implementation](../implementation.md) · [Requirements](../requirements.md) · [Characteristics](../architecture-characteristics.md) · [Brief](../kata-brief.pdf)
+
 Every state a pass moves through from purchase to expiry, and what a gate does in each.
 This is the picture behind [013](../adrs/013-pass-lifecycle.md).
 
@@ -64,3 +66,9 @@ paid to add a child being turned away for holding the original QR code.
   would only matter if reissue-after-loss were priced differently from a refund.
 - Annual passes sit in `Valid` for thirteen months and cross a key rotation while they do.
   Nothing here shows that, and it may want its own picture if the key set gets interesting.
+
+---
+
+<p align="center">❦</p>
+
+<p align="right"><a href="#11-pass-lifecycle">↑ Back to top</a> · <a href="../../README.md">Home</a> · <a href="../adrs/README.md">All ADRs</a> · <a href="README.md">All diagrams</a></p>

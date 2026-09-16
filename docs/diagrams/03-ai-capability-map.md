@@ -1,5 +1,7 @@
 # 03. AI capability map
 
+**Go straight to:** [Home](../../README.md) · [ADRs](../adrs/README.md) · [Diagrams](README.md) · [Implementation](../implementation.md) · [Requirements](../requirements.md) · [Characteristics](../architecture-characteristics.md) · [Brief](../kata-brief.pdf)
+
 Every place AI appears, grouped by determinism tier, with where it runs and what it is
 allowed to do. This is the picture behind
 [011](../adrs/011-ai-determinism-tiers.md).
@@ -86,3 +88,9 @@ nothing non-deterministic holds authority over safety or money.
   cells are not.
 - Is nine too many to build credibly in the time we are describing? Phasing may need to
   appear in the overview.
+
+---
+
+<p align="center">❦</p>
+
+<p align="right"><a href="#03-ai-capability-map">↑ Back to top</a> · <a href="../../README.md">Home</a> · <a href="../adrs/README.md">All ADRs</a> · <a href="README.md">All diagrams</a></p>

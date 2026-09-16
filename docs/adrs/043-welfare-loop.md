@@ -1,5 +1,7 @@
 # 043. Watching animal health, and what the system may do on its own
 
+**Go straight to:** [Home](../../README.md) · [ADRs](README.md) · [Diagrams](../diagrams/README.md) · [Implementation](../implementation.md) · [Requirements](../requirements.md) · [Characteristics](../architecture-characteristics.md) · [Brief](../kata-brief.pdf)
+
 ## Status
 
 Proposed
@@ -159,3 +161,9 @@ that animal. Raising the limits to quieten the system would hide the misses.
 - **[ADR-044](044-disconnected-operation.md)** covers what happens when the connection drops
 - **[ADR-046](046-count-reconciliation.md)** covers what happens when a count suggests an animal is unwell
 - **[ADR-047](047-environment-and-weather.md)** supplies cohort baselines, threshold provenance and equipment state
+
+---
+
+<p align="center">❦</p>
+
+<p align="right"><a href="#043-watching-animal-health-and-what-the-system-may-do-on-its-own">↑ Back to top</a> · <a href="../../README.md">Home</a> · <a href="README.md">All ADRs</a> · <a href="../diagrams/README.md">All diagrams</a></p>

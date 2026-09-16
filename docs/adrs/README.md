@@ -1,5 +1,7 @@
 # Architecture decision records
 
+**Go straight to:** [Home](../../README.md) · [ADRs](README.md) · [Diagrams](../diagrams/README.md) · [Implementation](../implementation.md) · [Requirements](../requirements.md) · [Characteristics](../architecture-characteristics.md) · [Brief](../kata-brief.pdf)
+
 Every significant decision in this proposal, with the alternatives we rejected and what
 each choice costs. Requirement identifiers cited inline come from
 [requirements](../requirements.md).
@@ -63,3 +65,9 @@ monitored in production, and kept inside a budget.
 Numbers are grouped by area and are not sequential. 010s are foundations and admissions,
 020s assurance, 040s the estate and its animals, 060s the visitor-facing capabilities.
 Gaps are deliberate and leave room for records we have not written.
+
+---
+
+<p align="center">❦</p>
+
+<p align="right"><a href="#architecture-decision-records">↑ Back to top</a> · <a href="../../README.md">Home</a> · <a href="README.md">All ADRs</a> · <a href="../diagrams/README.md">All diagrams</a></p>

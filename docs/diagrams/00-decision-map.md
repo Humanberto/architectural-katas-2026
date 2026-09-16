@@ -1,5 +1,7 @@
 # 00. Decision map
 
+**Go straight to:** [Home](../../README.md) · [ADRs](../adrs/README.md) · [Diagrams](README.md) · [Implementation](../implementation.md) · [Requirements](../requirements.md) · [Characteristics](../architecture-characteristics.md) · [Brief](../kata-brief.pdf)
+
 Every record in this repository, and what each one rests on. An arrow means the record at
 the tail cannot stand without the record at the head.
 
@@ -96,3 +98,9 @@ problem among several — it is the constraint the rest of the design is shaped 
 **Nothing depends on a model provider.** No arrow in this map leads off the estate. The
 capabilities that use a hosted model sit at the edges of the picture, and removing them
 removes features rather than foundations.
+
+---
+
+<p align="center">❦</p>
+
+<p align="right"><a href="#00-decision-map">↑ Back to top</a> · <a href="../../README.md">Home</a> · <a href="../adrs/README.md">All ADRs</a> · <a href="README.md">All diagrams</a></p>

@@ -1,5 +1,7 @@
 # 011. AI determinism tiers, and using the lowest tier that works
 
+**Go straight to:** [Home](../../README.md) · [ADRs](README.md) · [Diagrams](../diagrams/README.md) · [Implementation](../implementation.md) · [Requirements](../requirements.md) · [Characteristics](../architecture-characteristics.md) · [Brief](../kata-brief.pdf)
+
 ## Status
 
 Proposed
@@ -106,3 +108,9 @@ Three rules follow.
   record should be revisited.
 - The team has, or can acquire, enough classical modelling skill to build Tier 1 well. A
   badly built Tier 1 model is worse than a competent Tier 3 one.
+
+---
+
+<p align="center">❦</p>
+
+<p align="right"><a href="#011-ai-determinism-tiers-and-using-the-lowest-tier-that-works">↑ Back to top</a> · <a href="../../README.md">Home</a> · <a href="README.md">All ADRs</a> · <a href="../diagrams/README.md">All diagrams</a></p>

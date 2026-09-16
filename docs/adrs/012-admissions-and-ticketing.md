@@ -1,5 +1,7 @@
 # 012. Admissions and ticketing, with gates that work offline
 
+**Go straight to:** [Home](../../README.md) · [ADRs](README.md) · [Diagrams](../diagrams/README.md) · [Implementation](../implementation.md) · [Requirements](../requirements.md) · [Characteristics](../architecture-characteristics.md) · [Brief](../kata-brief.pdf)
+
 ## Status
 
 Proposed
@@ -104,3 +106,9 @@ reconciled, which is what makes the presence-sensing verification in C's range p
 - Payment is handled by an external provider. We store no card data.
 - A short offline re-use window is commercially acceptable to the estate. This is a
   business decision and should be confirmed rather than assumed.
+
+---
+
+<p align="center">❦</p>
+
+<p align="right"><a href="#012-admissions-and-ticketing-with-gates-that-work-offline">↑ Back to top</a> · <a href="../../README.md">Home</a> · <a href="README.md">All ADRs</a> · <a href="../diagrams/README.md">All diagrams</a></p>

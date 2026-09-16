@@ -1,5 +1,7 @@
 # Overview
 
+**Go straight to:** [Home](../README.md) · [ADRs](adrs/README.md) · [Diagrams](diagrams/README.md) · [Implementation](implementation.md) · [Requirements](requirements.md) · [Characteristics](architecture-characteristics.md) · [Brief](kata-brief.pdf)
+
 ## The problem in one paragraph
 
 The Von Digitalis estates are unprofitable, the garden gnome business is gone, and visitor
@@ -115,3 +117,9 @@ money, or overrules a person.
   do not depend on any external provider from day one.
 - Several assumptions are marked as derived rather than stated in
   [requirements](requirements.md). They are listed there rather than buried.
+
+---
+
+<p align="center">❦</p>
+
+<p align="right"><a href="#overview">↑ Back to top</a> · <a href="../README.md">Home</a> · <a href="adrs/README.md">All ADRs</a> · <a href="diagrams/README.md">All diagrams</a></p>

@@ -1,5 +1,7 @@
 # 010. Edge-first data plane with a conventional transactional core
 
+**Go straight to:** [Home](../../README.md) · [ADRs](README.md) · [Diagrams](../diagrams/README.md) · [Implementation](../implementation.md) · [Requirements](../requirements.md) · [Characteristics](../architecture-characteristics.md) · [Brief](../kata-brief.pdf)
+
 ## Status
 
 Proposed
@@ -104,3 +106,9 @@ the cloud analytics layer, where it is cheapest.
 - The estate can host modest compute at the satellite brokers, per the funded MQTT
   hardware baseline (C3, C14).
 - No regulatory requirement forces ticketing data to remain on the estate.
+
+---
+
+<p align="center">❦</p>
+
+<p align="right"><a href="#010-edge-first-data-plane-with-a-conventional-transactional-core">↑ Back to top</a> · <a href="../../README.md">Home</a> · <a href="README.md">All ADRs</a> · <a href="../diagrams/README.md">All diagrams</a></p>

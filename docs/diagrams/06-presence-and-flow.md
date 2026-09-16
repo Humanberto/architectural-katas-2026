@@ -1,5 +1,7 @@
 # 06. Presence and flow
 
+**Go straight to:** [Home](../../README.md) · [ADRs](../adrs/README.md) · [Diagrams](README.md) · [Implementation](../implementation.md) · [Requirements](../requirements.md) · [Characteristics](../architecture-characteristics.md) · [Brief](../kata-brief.pdf)
+
 Counting visitors without creating anything that identifies one. Decided in
 [045](../adrs/045-presence-and-flow.md).
 
@@ -112,3 +114,9 @@ once the counters exist.
 
 If a relationship turns out to be real, feeding schedules move, which would be a welfare
 improvement derived from a visitor sensor.
+
+---
+
+<p align="center">❦</p>
+
+<p align="right"><a href="#06-presence-and-flow">↑ Back to top</a> · <a href="../../README.md">Home</a> · <a href="../adrs/README.md">All ADRs</a> · <a href="README.md">All diagrams</a></p>

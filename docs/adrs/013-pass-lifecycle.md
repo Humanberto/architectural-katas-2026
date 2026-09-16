@@ -1,5 +1,7 @@
 # 013. Pass lifecycle: amendment, revocation, and key rotation
 
+**Go straight to:** [Home](../../README.md) · [ADRs](README.md) · [Diagrams](../diagrams/README.md) · [Implementation](../implementation.md) · [Requirements](../requirements.md) · [Characteristics](../architecture-characteristics.md) · [Brief](../kata-brief.pdf)
+
 ## Status
 
 Proposed
@@ -250,3 +252,9 @@ analytics through the estate API path that 042 reserves for transactional system
   physically supervised during opening hours — carried forward from 012.
 - Annual passes exist as a product. If they do not, the persistent tail of the deny list
   disappears and every number here improves.
+
+---
+
+<p align="center">❦</p>
+
+<p align="right"><a href="#013-pass-lifecycle-amendment-revocation-and-key-rotation">↑ Back to top</a> · <a href="../../README.md">Home</a> · <a href="README.md">All ADRs</a> · <a href="../diagrams/README.md">All diagrams</a></p>
