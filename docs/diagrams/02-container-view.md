@@ -6,6 +6,7 @@ The whole system on one page. This is the picture the Countess and her managers 
 study longest, and the one most likely to be wrong. Shapes and colours are in the [key](README.md#the-key).
 
 ```mermaid
+%%{init: {'flowchart': {'nodeSpacing': 55, 'rankSpacing': 75, 'curve': 'basis', 'padding': 12}}}%%
 flowchart TB
   subgraph estate["On the estate"]
     sensors[/Enclosure and ride sensors/]
