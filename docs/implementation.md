@@ -1,6 +1,8 @@
 # Implementation details (optional)
 
-_Pertinent implementation details. Sections below are owned per `docs/roles.md`; each
+**Go straight to:** [Home](../README.md) · [ADRs](adrs/README.md) · [Diagrams](diagrams/README.md) · [Implementation](implementation.md) · [Requirements](requirements.md) · [Characteristics](architecture-characteristics.md) · [Brief](kata-brief.pdf)
+
+_Pertinent implementation details. Sections below are owned per seat, per [roles.md](roles.md); each
 seat writes its own._
 
 ## Evaluation (B)
@@ -29,7 +31,7 @@ golden set through the gateway on any pull request touching a prompt or model co
 under `gateway/config/`. It fails the build if: a `must_ground_to` case returns a claim
 with no matching citation; a `must_refuse` case is answered instead of refused; or the
 model-graded score for the batch falls below the capability's threshold. This is what
-makes the 021 gate "CI blocks the merge," not a person reading transcripts.
+makes the [021](adrs/021-evaluating-ai-before-release.md) gate "CI blocks the merge," not a person reading transcripts.
 
 **Grounding check, concretely.** The gateway requires every model call for a
 grounded capability to return citations alongside its answer. The check walks the
@@ -40,14 +42,14 @@ No citation, no pass — this needs no judgement call.
 **Audit-rate tracker.** A small counter per capability —
 `consecutive_clean_releases` — persisted alongside the gateway config. Three
 consecutive releases with zero audit findings drops that capability's human-audit
-sample from 100% to 20% for its next release, per 021. One finding resets it to 100%.
+sample from 100% to 20% for its next release, per [021](adrs/021-evaluating-ai-before-release.md). One finding resets it to 100%.
 
 ## Cost (B)
 
 Implements [023](adrs/023-ai-cost-control.md) and the pricing half of
 [020](adrs/020-model-gateway.md). See [diagram 09](diagrams/09-model-gateway.md).
 
-**Cost log.** Every gateway call appends one row to the same call log 020 already
+**Cost log.** Every gateway call appends one row to the same call log [020](adrs/020-model-gateway.md) already
 defines — capability, tier, model id and version, `$_cost`, `cache_hit` — so cost
 tracking adds a query, not a new log.
 
@@ -59,18 +61,18 @@ cost_per_1k(capability, period) =
     / (admission_count(period, source: ADR-012 event stream) / 1000)
 ```
 
-Using the admissions stream from ADR 012 as the visitor count, rather than a separate
+Using the admissions stream from [012](adrs/012-admissions-and-ticketing.md) as the visitor count, rather than a separate
 counter, means this figure is only ever as stale as ticketing data already is.
 
-**Ceiling config**, sitting in the same gateway config file 020 defines per capability:
+**Ceiling config** (model names and figures below are illustrative), sitting in the same gateway config file [020](adrs/020-model-gateway.md) defines per capability:
 
 ```yaml
 concierge:
-  active: gpt-x-mini
-  fallback: [gpt-x-nano, static-faq]
+  active: small-hosted-llm
+  fallback: [smaller-hosted-llm, static-faq]
   ceiling_cost_per_1k_visitors: 4.50
 copilot:
-  active: gpt-x-mini
+  active: small-hosted-llm
   fallback: [raw-filter-ui]
   ceiling_cost_per_1k_visitors: 2.00
 ```
@@ -92,4 +94,10 @@ on request(capability, input):
 
 **Daily price-anomaly job.** A scheduled job compares each capability's mean `$_cost`
 per call today against its trailing 7-day mean. A rise past a set percentage raises the
-same alert used by 022's drift digest — one alerting path, not two.
+same alert used by [022](adrs/022-detecting-ai-misbehaviour.md)'s drift digest — one alerting path, not two.
+
+---
+
+<p align="center">❦</p>
+
+<p align="right"><a href="#implementation-details-optional">↑ Back to top</a> · <a href="../README.md">Home</a> · <a href="adrs/README.md">All ADRs</a> · <a href="diagrams/README.md">All diagrams</a></p>
