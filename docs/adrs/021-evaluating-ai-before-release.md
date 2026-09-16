@@ -1,14 +1,16 @@
 # 021. Evaluating AI before release
 
+**Go straight to:** [Home](../../README.md) · [ADRs](README.md) · [Diagrams](../diagrams/README.md) · [Implementation](../implementation.md) · [Requirements](../requirements.md) · [Characteristics](../architecture-characteristics.md) · [Brief](../kata-brief.pdf)
+
 ## Status
 
 Accepted
 
 ## Context
 
-The brief asks us to validate and verify AI results (R13). Verifying deterministic
+The brief asks us to validate and verify AI results ([R13](../requirements.md#requirements)). Verifying deterministic
 software is routine; the difficulty is that generative behaviour is non-deterministic
-(C12), so "run it twice and compare" does not establish correctness.
+([C12](../requirements.md#constraints)), so "run it twice and compare" does not establish correctness.
 
 [011](011-ai-determinism-tiers.md) splits our capabilities into three tiers, and each
 tier admits a different kind of evidence:
@@ -16,15 +18,15 @@ tier admits a different kind of evidence:
 - Tier 1, classical and reproducible. A held-out set and an accuracy threshold. This is
   ordinary testing and needs little invention.
 - Tier 2, perceptual. Non-deterministic in value, bounded in shape, and — critically —
-  usually has an independent physical ground truth available: a stock ledger, a turnstile
-  count, an inspection, a vet's score.
+  usually has an independent physical ground truth available: a keeper's typed count, a gate
+  admission scan, an inspection, a vet's score.
 - Tier 3, generative. Non-deterministic in both value and shape, and frequently with no
   external ground truth at all.
 
 This record covers what has to be true before an AI capability is allowed to ship.
 [022](022-detecting-ai-misbehaviour.md) covers what happens after it has shipped.
 
-Questions B will want to settle:
+Questions this record has to answer:
 
 - What does a golden set look like per tier, who builds it, and how large does it need
   to be to mean anything?
@@ -37,10 +39,10 @@ Questions B will want to settle:
 - What is the minimum bar for a capability with no available ground truth — and is
   "cannot be evaluated" grounds for not shipping it?
 
-Note the constraint that shapes all of this: there is no ML team here (C13). Whatever is
+Note the constraint that shapes all of this: there is no ML team here ([C13](../requirements.md#constraints)). Whatever is
 designed has to be runnable by a generalist, in CI, without interpretation.
 
-Alternatives worth considering and rejecting explicitly: manual spot-checking before
+Alternatives considered and rejected explicitly: manual spot-checking before
 release; relying on provider-published benchmarks; and shipping without a gate and
 relying entirely on production monitoring.
 
@@ -50,26 +52,27 @@ relying entirely on production monitoring.
 become active in [020](020-model-gateway.md)'s gateway without passing a release gate
 appropriate to its tier.** The gate runs in CI, produces a pass/fail with no
 interpretation required, and blocks the merge or the config change if it fails — this
-is the only design that survives C13, because anything requiring judgement to read has
+is the only design that survives [C13](../requirements.md#constraints), because anything requiring judgement to read has
 no one here to read it.
 
 **Tier 1 gate.** A held-out test set and a numeric accuracy threshold. The number
-belongs to the capability's owning ADR (043 for welfare, 060/061/064 for D's range);
+belongs to the capability's owning ADR ([043](043-welfare-loop.md) for welfare, [045](045-presence-and-flow.md) and [046](046-count-reconciliation.md) for presence and
+population, 060/061/064 for D's range);
 this record's contribution is that the threshold must be a number checked in CI, not a
 number in a document nobody re-runs.
 
 **Tier 2 gate.** A golden set of at least 100 labelled examples reconciled against the
-capability's named independent physical ground truth — a stock ledger for the piranha
-count, gate admissions for zone counting, an inspection outcome for ride condition. Pass
+capability's named independent physical ground truth — the keeper's typed count for the piranha
+population ([046](046-count-reconciliation.md)), gate admissions for zone counting ([012](012-admissions-and-ticketing.md), [045](045-presence-and-flow.md)), an inspection outcome for ride condition. Pass
 criterion is a mean-absolute-error bound set by the owning ADR. The gate re-runs on
 every model change and on every material sensor or firmware change, because either can
 move the error without moving the code.
 
-**Tier 3 gate — this is the one B owns most directly, because concierge and copilot have
-no natural held-out set.**
+**Tier 3 gate.** This is the hardest of the three, because concierge and copilot have
+no natural held-out set.
 
 1. A golden set of at least 50 scenarios per capability, written by a person, split into
-   three kinds: representative questions (the forty-or-so things visitors actually ask),
+   three kinds: representative questions (the things visitors actually ask),
    edge cases, and known-bad prompts the capability must refuse or must not answer from
    invented facts.
 2. A grounding check runs on every golden-set answer and every production answer alike:
@@ -88,7 +91,7 @@ no natural held-out set.**
    break.
 5. A capability with no available ground truth and no retrievable grounding source is
    not eligible to ship — "cannot be evaluated" is grounds for not shipping it, not
-   grounds for shipping it with a lighter check. Both of B's Tier 3 capabilities have a
+   grounds for shipping it with a lighter check. Both Tier 3 capabilities have a
    grounding source (the estate's own FAQ and pricing data, the operations data the
    copilot queries), so neither is expected to hit this case; if a future generative
    capability has neither, it belongs in Tier 2 or does not ship.
@@ -106,14 +109,14 @@ about the capability.
 **B. Shipping without a gate and relying entirely on production monitoring.** Rejected
 because it conflates this record with [022](022-detecting-ai-misbehaviour.md), and
 production monitoring is necessarily reactive — the first evidence of a bad release
-would be a visitor receiving a wrong answer, which is exactly what R13 asks us to catch
+would be a visitor receiving a wrong answer, which is exactly what [R13](../requirements.md#requirements) asks us to catch
 before it reaches them, not after.
 
 ## Consequences
 
 ### Positive
 
-- The gate is mechanical and generalist-operable, which C13 requires: pass or fail, no
+- The gate is mechanical and generalist-operable, which [C13](../requirements.md#constraints) requires: pass or fail, no
   ML expertise needed to read the result.
 - Grounding checks give the concierge a hard, checkable answer to "did it make something
   up," independent of how fluent the answer reads.
@@ -130,14 +133,14 @@ before it reaches them, not after.
 - The 100-example minimum for Tier 2 and 50-scenario minimum for Tier 3 are our numbers,
   not the brief's — chosen as the smallest set we believe says something, and worth
   revisiting once real question logs exist.
-- A capability that fails 5 and cannot get a grounding source built in time does not
+- A capability that fails point 5 and cannot get a grounding source built in time does not
   ship at all; this is a real product cost, not a hypothetical one, if the copilot's
   query layer turns out to be harder to ground than expected.
 
 ### Assumptions
 
 - Someone on the team writes the first golden set by hand; there is no existing question
-  log to mine it from, because the estate has no digital operation today (P8, P7).
+  log to mine it from, because the estate has no digital operation today ([P8](../requirements.md#problems), [P10](../requirements.md#problems)).
 - The model-grading-a-model step is cheap enough to run on every release without
   becoming a cost problem in its own right; if it is not, [023](023-ai-cost-control.md)
   should account for it explicitly.
@@ -148,3 +151,10 @@ before it reaches them, not after.
 - Implementation: [Evaluation](../implementation.md#evaluation-b)
 - [020](020-model-gateway.md) is what this gate promotes a version into
 - [022](022-detecting-ai-misbehaviour.md) covers the same capability after release
+- [046](046-count-reconciliation.md) and [045](045-presence-and-flow.md) name the Tier 2 ground truths this gate reconciles against
+
+---
+
+<p align="center">❦</p>
+
+<p align="right"><a href="#021-evaluating-ai-before-release">↑ Back to top</a> · <a href="../../README.md">Home</a> · <a href="README.md">All ADRs</a> · <a href="../diagrams/README.md">All diagrams</a></p>
