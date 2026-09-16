@@ -1,5 +1,7 @@
 # Problems, requirements and constraints
 
+**Go straight to:** [Home](../README.md) · [ADRs](adrs/README.md) · [Diagrams](diagrams/README.md) · [Implementation](implementation.md) · [Requirements](requirements.md) · [Characteristics](architecture-characteristics.md) · [Brief](kata-brief.pdf)
+
 Everything the Von Digitalis brief tells us, given an ID so ADRs and diagrams can cite it.
 
 Each item is marked **stated** (it appears in the brief) or **derived** (a reasonable inference the team has agreed to treat as true). Derived items are assumptions, and are called out as such in the overview.
@@ -75,4 +77,8 @@ What limits or shapes any solution.
 
 Cite them inline in ADRs and diagram notes: `... has patchy wifi coverage (C1)`.
 
+---
 
+<p align="center">❦</p>
+
+<p align="right"><a href="#problems-requirements-and-constraints">↑ Back to top</a> · <a href="../README.md">Home</a> · <a href="adrs/README.md">All ADRs</a> · <a href="diagrams/README.md">All diagrams</a></p>

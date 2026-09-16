@@ -1,5 +1,7 @@
 # 041. Hybrid transport: LoRaWAN for sensors, wifi for everything else
 
+**Go straight to:** [Home](../../README.md) · [ADRs](README.md) · [Diagrams](../diagrams/README.md) · [Implementation](../implementation.md) · [Requirements](../requirements.md) · [Characteristics](../architecture-characteristics.md) · [Brief](../kata-brief.pdf)
+
 ## Status
 
 Proposed. Amends the first two tiers of [ADR-040](040-connectivity-topology.md).
@@ -100,3 +102,9 @@ sensors instead of devices needing mains power or frequent visits to restricted 
 - **[ADR-043](043-welfare-loop.md)** what may act automatically, dependent on the command path above
 - **[ADR-046](046-count-reconciliation.md)** depends on camera results rather than images
 - **[ADR-047](047-environment-and-weather.md)** adds weather and equipment streams on the same transports
+
+---
+
+<p align="center">❦</p>
+
+<p align="right"><a href="#041-hybrid-transport-lorawan-for-sensors-wifi-for-everything-else">↑ Back to top</a> · <a href="../../README.md">Home</a> · <a href="README.md">All ADRs</a> · <a href="../diagrams/README.md">All diagrams</a></p>

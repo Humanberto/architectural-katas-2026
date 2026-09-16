@@ -1,5 +1,7 @@
 # 010. Edge-first data plane with a conventional transactional core
 
+**Go straight to:** [Home](../../README.md) · [ADRs](README.md) · [Diagrams](../diagrams/README.md) · [Implementation](../implementation.md) · [Requirements](../requirements.md) · [Characteristics](../architecture-characteristics.md) · [Brief](../kata-brief.pdf)
+
 ## Status
 
 Proposed
@@ -9,14 +11,14 @@ Proposed
 The brief contains two problems of genuinely different shape, and the most consequential
 early decision is to stop treating them as one.
 
-The first is sensing and analysis. Measuring area popularity (R3), monitoring animal
-health (R5), tracking feeding (R6), counting piranhas (R7) and moving all of it to the
-cloud (R11) are a continuous stream of small observations from hardware scattered across
-an estate with patchy wifi (C1) over a path we have to design rather than assume (C2).
-The system must keep working while disconnected (R15).
+The first is sensing and analysis. Measuring area popularity ([R3](../requirements.md#requirements)), monitoring animal
+health ([R5](../requirements.md#requirements)), tracking feeding ([R6](../requirements.md#requirements)), counting piranhas ([R7](../requirements.md#requirements)) and moving all of it to the
+cloud ([R11](../requirements.md#requirements)) are a continuous stream of small observations from hardware scattered across
+an estate with patchy wifi ([C1](../requirements.md#constraints)) over a path we have to design rather than assume ([C2](../requirements.md#constraints)).
+The system must keep working while disconnected ([R15](../requirements.md#requirements)).
 
-The second is transactions. Selling tickets and family passes (R1) and validating
-admission at entry (R2) is a small, strongly-consistent, money-handling problem with
+The second is transactions. Selling tickets and family passes ([R1](../requirements.md#requirements)) and validating
+admission at entry ([R2](../requirements.md#requirements)) is a small, strongly-consistent, money-handling problem with
 invariants that span entities.
 
 These pull in opposite directions. The first wants asynchronous messaging, local
@@ -25,13 +27,13 @@ Forcing one style onto both produces either a telemetry pipeline burdened with
 transactional guarantees it does not need, or a ticketing system with eventual
 consistency it cannot tolerate.
 
-The scale numbers argue for restraint in both. Fifteen thousand visitors a day (C8) is
+The scale numbers argue for restraint in both. Fifteen thousand visitors a day ([C8](../requirements.md#constraints)) is
 roughly one admission per second averaged, perhaps twenty per second at gate opening.
 Telemetry runs under twenty messages per second estate-wide. Neither is a scale problem.
 
 The operational constraint is the binding one. This is a family estate with a small
-operations staff and no in-house ML team (C13), and no budget beyond the funded MQTT
-hardware baseline (C14). Every additional moving part is a part nobody is paid to watch.
+operations staff and no in-house ML team ([C13](../requirements.md#constraints)), and no budget beyond the funded MQTT
+hardware baseline ([C14](../requirements.md#constraints)). Every additional moving part is a part nobody is paid to watch.
 
 Three alternatives were considered.
 
@@ -42,7 +44,7 @@ per second. The failure mode — a family pass half-issued — is exactly the fa
 the estate cannot afford.
 
 **B. One conventional cloud application for everything, with sensors calling in.**
-Simple, familiar, one thing to operate. Rejected outright by C1 and R15: it stops
+Simple, familiar, one thing to operate. Rejected outright by [C1](../requirements.md#constraints) and [R15](../requirements.md#requirements): it stops
 entirely when the link drops, which is a normal condition here rather than an outage.
 
 **C. Fine-grained microservices throughout.** Rejected: it is the shape a team of four
@@ -83,7 +85,7 @@ the cloud analytics layer, where it is cheapest.
   deployable for transactions, and a known set of edge devices.
 - The architectural characteristics of each half match its problem, which is what lets us
   add AI capabilities later without them inheriting guarantees they do not need.
-- Scaling from 5,000 to 15,000 visitors (C8, C9) requires no structural change. It is a
+- Scaling from 5,000 to 15,000 visitors ([C8](../requirements.md#constraints), [C9](../requirements.md#constraints)) requires no structural change. It is a
   larger database instance and more gate hardware.
 
 ### Negative
@@ -102,5 +104,11 @@ the cloud analytics layer, where it is cheapest.
 - Twenty admissions per second at peak is a fair estimate of the gate-opening surge at
   15,000 visitors a day.
 - The estate can host modest compute at the satellite brokers, per the funded MQTT
-  hardware baseline (C3, C14).
+  hardware baseline ([C3](../requirements.md#constraints), [C14](../requirements.md#constraints)).
 - No regulatory requirement forces ticketing data to remain on the estate.
+
+---
+
+<p align="center">❦</p>
+
+<p align="right"><a href="#010-edge-first-data-plane-with-a-conventional-transactional-core">↑ Back to top</a> · <a href="../../README.md">Home</a> · <a href="README.md">All ADRs</a> · <a href="../diagrams/README.md">All diagrams</a></p>

@@ -1,5 +1,7 @@
 # 042. Telemetry model, topic taxonomy, and delivery guarantees
 
+**Go straight to:** [Home](../../README.md) · [ADRs](README.md) · [Diagrams](../diagrams/README.md) · [Implementation](../implementation.md) · [Requirements](../requirements.md) · [Characteristics](../architecture-characteristics.md) · [Brief](../kata-brief.pdf)
+
 ## Status
 
 Proposed
@@ -150,12 +152,18 @@ QoS 1 delivers duplicates. Every consumer of an event stream has to tolerate see
 
 We accept losing individual samples. Through a long outage, a QoS 0 stream has genuine holes in it. Any analysis built on this data has to cope with gaps rather than assume even sampling.
 
-The sensor count grows. Adding dissolved oxygen, containment and lamp state raises the per-enclosure hardware cost and the number of devices somebody has to maintain, measured against a funded baseline (C3, C14) that nobody has itemised yet.
+The sensor count grows. Adding dissolved oxygen, containment and lamp state raises the per-enclosure hardware cost and the number of devices somebody has to maintain, measured against a funded baseline ([C3](../requirements.md#constraints), [C14](../requirements.md#constraints)) that nobody has itemised yet.
 
 The intervals above are estimates. They come from general practice rather than from husbandry requirements for the specific species held here, and a keeper should review them before anyone treats them as settled.
 
 ### Assumptions
 
-Dissolved oxygen, containment and lamp state sensors are available as MQTT-capable devices, or can be attached to one, and therefore sit inside the funded baseline (C3, C14).
+Dissolved oxygen, containment and lamp state sensors are available as MQTT-capable devices, or can be attached to one, and therefore sit inside the funded baseline ([C3](../requirements.md#constraints), [C14](../requirements.md#constraints)).
 
 Safe ranges for each measure come from keepers with species knowledge, not from this team.
+
+---
+
+<p align="center">❦</p>
+
+<p align="right"><a href="#042-telemetry-model-topic-taxonomy-and-delivery-guarantees">↑ Back to top</a> · <a href="../../README.md">Home</a> · <a href="README.md">All ADRs</a> · <a href="../diagrams/README.md">All diagrams</a></p>

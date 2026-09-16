@@ -1,5 +1,7 @@
 # 02. Container view
 
+**Go straight to:** [Home](../../README.md) · [ADRs](../adrs/README.md) · [Diagrams](README.md) · [Implementation](../implementation.md) · [Requirements](../requirements.md) · [Characteristics](../architecture-characteristics.md) · [Brief](../kata-brief.pdf)
+
 The whole system on one page. This is the picture the Countess and her managers will
 study longest, and the one most likely to be wrong. Shapes and colours are in the [key](README.md#the-key).
 
@@ -101,3 +103,9 @@ The model gateway is the only thing that talks to model providers, per
 - "Commercial service" is doing a lot of unexamined work — pricing, retention and
   reporting are three different things.
 - No line shows the reconciliation path from cloud back to the estate, and there is one.
+
+---
+
+<p align="center">❦</p>
+
+<p align="right"><a href="#02-container-view">↑ Back to top</a> · <a href="../../README.md">Home</a> · <a href="../adrs/README.md">All ADRs</a> · <a href="README.md">All diagrams</a></p>

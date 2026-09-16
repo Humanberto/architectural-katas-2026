@@ -1,5 +1,7 @@
 # 05. Welfare monitoring
 
+**Go straight to:** [Home](../../README.md) · [ADRs](../adrs/README.md) · [Diagrams](README.md) · [Implementation](../implementation.md) · [Requirements](../requirements.md) · [Characteristics](../architecture-characteristics.md) · [Brief](../kata-brief.pdf)
+
 Two views. What is allowed to act on equipment, and how we find out whether the model is still
 any good.
 
@@ -137,3 +139,9 @@ Many animals at once means the model has drifted, a sensor is dirty, or somethin
 nobody recorded.
 
 Also in [043](../adrs/043-welfare-loop.md).
+
+---
+
+<p align="center">❦</p>
+
+<p align="right"><a href="#05-welfare-monitoring">↑ Back to top</a> · <a href="../../README.md">Home</a> · <a href="../adrs/README.md">All ADRs</a> · <a href="README.md">All diagrams</a></p>

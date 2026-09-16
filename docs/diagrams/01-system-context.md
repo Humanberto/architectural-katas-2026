@@ -1,5 +1,7 @@
 # 01. System context
 
+**Go straight to:** [Home](../../README.md) · [ADRs](../adrs/README.md) · [Diagrams](README.md) · [Implementation](../implementation.md) · [Requirements](../requirements.md) · [Characteristics](../architecture-characteristics.md) · [Brief](../kata-brief.pdf)
+
 Who uses the Von Digitalis systems, and what we depend on outside them. Shapes and
 colours are defined in the [key](README.md#the-key).
 
@@ -46,7 +48,7 @@ flowchart TB
 ## Notes
 
 Six kinds of person, three external dependencies. Only one of those dependencies —
-model providers — is volatile (C11), and only two capabilities use it, which is the
+model providers — is volatile ([C11](../requirements.md#constraints)), and only two capabilities use it, which is the
 argument made in [011](../adrs/011-ai-determinism-tiers.md).
 
 The vet appears as an actor rather than a role inside the estate because
@@ -59,3 +61,9 @@ there is no vet on staff by default.
 - Does a schools or groups booking channel need to appear separately?
 - Should the statutory ride inspector appear? They are an authority the system defers to
   but never talks to.
+
+---
+
+<p align="center">❦</p>
+
+<p align="right"><a href="#01-system-context">↑ Back to top</a> · <a href="../../README.md">Home</a> · <a href="../adrs/README.md">All ADRs</a> · <a href="README.md">All diagrams</a></p>

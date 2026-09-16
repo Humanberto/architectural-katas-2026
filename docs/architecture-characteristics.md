@@ -1,5 +1,7 @@
 # Architectural characteristics
 
+**Go straight to:** [Home](../README.md) · [ADRs](adrs/README.md) · [Diagrams](diagrams/README.md) · [Implementation](implementation.md) · [Requirements](requirements.md) · [Characteristics](architecture-characteristics.md) · [Brief](kata-brief.pdf)
+
 What we are optimising for, in order, and what we are deliberately giving up. Every ADR
 in this repository should be traceable to something on this page. If a decision
 contradicts this document, one of the two is wrong and we should say which.
@@ -13,20 +15,20 @@ that would actually hurt the Countess, and worked back.
 
 | If this fails | What it costs her | So we need |
 |---|---|---|
-| Gate entry on a busy Saturday | Queues, refunds, reviews, no return visits (P4, R10) | Admission that works with no network at all |
-| A sick animal is spotted late | Vet bills, a death, licence risk on a venomous collection (P3, C6) | High integrity and an auditable welfare record |
-| Footfall data is patchy | Staff in the wrong places; the central question stays unanswered (P2, R4) | Eventual completeness over real-time precision |
-| Ticketing during a holiday peak | Lost revenue at the one moment revenue exists (P1, C8) | Elasticity on the sales path specifically |
-| A model provider triples its price | An unbudgeted cost the estate cannot absorb (C11, C14) | Replaceability of every model |
-| An AI feature quietly degrades | Wrong staffing, missed welfare signals, nobody notices (C12, R13) | Observability of non-deterministic behaviour |
+| Gate entry on a busy Saturday | Queues, refunds, reviews, no return visits ([P4](requirements.md#problems), [R10](requirements.md#requirements)) | Admission that works with no network at all |
+| A sick animal is spotted late | Vet bills, a death, licence risk on a venomous collection ([P3](requirements.md#problems), [C6](requirements.md#constraints)) | High integrity and an auditable welfare record |
+| Footfall data is patchy | Staff in the wrong places; the central question stays unanswered ([P2](requirements.md#problems), [R4](requirements.md#requirements)) | Eventual completeness over real-time precision |
+| Ticketing during a holiday peak | Lost revenue at the one moment revenue exists ([P1](requirements.md#problems), [C8](requirements.md#constraints)) | Elasticity on the sales path specifically |
+| A model provider triples its price | An unbudgeted cost the estate cannot absorb ([C11](requirements.md#constraints), [C14](requirements.md#constraints)) | Replaceability of every model |
+| An AI feature quietly degrades | Wrong staffing, missed welfare signals, nobody notices ([C12](requirements.md#constraints), [R13](requirements.md#requirements)) | Observability of non-deterministic behaviour |
 
 ## The ranking
 
 Ranked deliberately. Everything cannot be first, and the ranking is what lets us say no
 later without relitigating.
 
-**1. Resilience under intermittent connectivity.** Wifi is patchy (C1), the estate-to-cloud
-path is ours to design (C2), and the system must keep working while disconnected (R15).
+**1. Resilience under intermittent connectivity.** Wifi is patchy ([C1](requirements.md#constraints)), the estate-to-cloud
+path is ours to design ([C2](requirements.md#constraints)), and the system must keep working while disconnected ([R15](requirements.md#requirements)).
 The estate is the source of truth until reconciliation, not the cloud. This is the
 characteristic that most shapes the topology, and it is why
 [040](adrs/040-connectivity-topology.md) and
@@ -35,24 +37,24 @@ characteristic that most shapes the topology, and it is why
 **2. Data integrity, for welfare and for money.** Welfare records and financial
 transactions are auditable and not silently rewritten. No AI output overwrites a
 recorded fact; it is stored alongside as an opinion with its model version and
-confidence. A licensed collection of venomous animals (C6, C10) is a regulated context
+confidence. A licensed collection of venomous animals ([C6](requirements.md#constraints), [C10](requirements.md#constraints)) is a regulated context
 even where the brief does not say so.
 
 **3. Replaceability of AI components.** Assume every model we choose is wrong within a
-year (C11, R14). Models sit behind an internal contract and are never called directly
+year ([C11](requirements.md#constraints), [R14](requirements.md#requirements)). Models sit behind an internal contract and are never called directly
 from business logic. This is what makes a price rise or a shutdown an operational event
 instead of a rewrite.
 
 **4. Cost efficiency.** The estate is unprofitable and must become profitable or be sold
-up (P1, P5). The only funded baseline is MQTT hardware (C3, C14). Cost per capability is
+up ([P1](requirements.md#problems), [P5](requirements.md#problems)). The only funded baseline is MQTT hardware ([C3](requirements.md#constraints), [C14](requirements.md#constraints)). Cost per capability is
 an architectural constraint here, not a finance review — and a capability whose cost
-scales with visitors gets more expensive precisely as the estate succeeds (C8).
+scales with visitors gets more expensive precisely as the estate succeeds ([C8](requirements.md#constraints)).
 
 **5. Observability of non-deterministic behaviour.** Generative behaviour is
-non-deterministic (C12) and the brief asks us to detect misbehaviour in production
-(R13). If we cannot tell that a capability has drifted, we do not deploy that capability.
+non-deterministic ([C12](requirements.md#constraints)) and the brief asks us to detect misbehaviour in production
+([R13](requirements.md#requirements)). If we cannot tell that a capability has drifted, we do not deploy that capability.
 
-**6. Elasticity, scoped.** Fifteen thousand visitors a day (C8) over three years (C9) is
+**6. Elasticity, scoped.** Fifteen thousand visitors a day ([C8](requirements.md#constraints)) over three years ([C9](requirements.md#constraints)) is
 roughly one admission per second, perhaps twenty per second at gate opening. Only the
 public sales and visitor-facing paths need to scale sharply. The back office does not.
 
@@ -68,12 +70,12 @@ Naming these is what stops the design sprawling, and it is half the value of thi
 - **Multi-region resilience.** One cloud region plus genuinely capable edge is right for
   a single physical estate.
 - **Fine-grained microservices.** There is no independent-deployment or scaling pressure,
-  and there is no platform team (C13). See [010](adrs/010-architecture-style.md).
+  and there is no platform team ([C13](requirements.md#constraints)). See [010](adrs/010-architecture-style.md).
 
 ## The operational constraint behind all of it
 
 This is a family estate, not a technology company, with a small operations staff and no
-in-house ML team (C13). Every additional moving part is a part nobody is paid to watch.
+in-house ML team ([C13](requirements.md#constraints)). Every additional moving part is a part nobody is paid to watch.
 Where two designs are close, we take the one that is easier to operate on a normal
 Tuesday, and we say so in the ADR.
 
@@ -104,3 +106,8 @@ forecasting problems, and treating them as such is cheaper, more verifiable, and
 when the network does not. This is stated properly in
 [011](adrs/011-ai-determinism-tiers.md).
 
+---
+
+<p align="center">❦</p>
+
+<p align="right"><a href="#architectural-characteristics">↑ Back to top</a> · <a href="../README.md">Home</a> · <a href="adrs/README.md">All ADRs</a> · <a href="diagrams/README.md">All diagrams</a></p>

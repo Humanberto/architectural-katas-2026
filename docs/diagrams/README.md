@@ -1,5 +1,7 @@
 # Diagrams
 
+**Go straight to:** [Home](../../README.md) · [ADRs](../adrs/README.md) · [Diagrams](README.md) · [Implementation](../implementation.md) · [Requirements](../requirements.md) · [Characteristics](../architecture-characteristics.md) · [Brief](../kata-brief.pdf)
+
 Diagrams are written as Mermaid inside Markdown. GitHub renders them, so the source and
 the picture are the same file and cannot drift apart. No export step, no `.png` to keep
 in sync.
@@ -109,3 +111,9 @@ the wrong reading. [11](11-pass-lifecycle.md) is the example to copy.
 - Reference every diagram from an ADR or `docs/overview.md`. Only what is linked gets
   read.
 - Fewer boxes is better. If a diagram needs more than about 25, it is two diagrams.
+
+---
+
+<p align="center">❦</p>
+
+<p align="right"><a href="#diagrams">↑ Back to top</a> · <a href="../../README.md">Home</a> · <a href="../adrs/README.md">All ADRs</a> · <a href="README.md">All diagrams</a></p>

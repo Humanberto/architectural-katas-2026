@@ -1,5 +1,7 @@
 # 045. Counting visitors without being able to identify them
 
+**Go straight to:** [Home](../../README.md) · [ADRs](README.md) · [Diagrams](../diagrams/README.md) · [Implementation](../implementation.md) · [Requirements](../requirements.md) · [Characteristics](../architecture-characteristics.md) · [Brief](../kata-brief.pdf)
+
 ## Status
 
 Proposed. Baseline settled. The card section at the end is not yet agreed.
@@ -124,3 +126,9 @@ independent check, consumable with no structural change: same topic tree ([ADR-0
 - **[ADR-041](041-hybrid-transport.md)** carries the counters, and explains why cards would not use LoRaWAN
 - **[ADR-046](046-count-reconciliation.md)** same estimate-and-correct pattern, applied to animals
 - **[ADR-047](047-environment-and-weather.md)** records visitor counts alongside weather and feeding
+
+---
+
+<p align="center">❦</p>
+
+<p align="right"><a href="#045-counting-visitors-without-being-able-to-identify-them">↑ Back to top</a> · <a href="../../README.md">Home</a> · <a href="README.md">All ADRs</a> · <a href="../diagrams/README.md">All diagrams</a></p>

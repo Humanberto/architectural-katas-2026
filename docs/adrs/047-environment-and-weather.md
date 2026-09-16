@@ -1,5 +1,7 @@
 # 047. Recording conditions so the data is worth learning from
 
+**Go straight to:** [Home](../../README.md) · [ADRs](README.md) · [Diagrams](../diagrams/README.md) · [Implementation](../implementation.md) · [Requirements](../requirements.md) · [Characteristics](../architecture-characteristics.md) · [Brief](../kata-brief.pdf)
+
 ## Status
 
 Proposed
@@ -125,3 +127,9 @@ vet may switch equipment on by themselves. What the forecast buys is warning tim
 - **[ADR-043](043-welfare-loop.md)** decides what may act; anything forecast-derived goes to a person
 - **[ADR-045](045-presence-and-flow.md)** supplies the visitor counts
 - **[ADR-046](046-count-reconciliation.md)** uses the same recording rules for the piranha count
+
+---
+
+<p align="center">❦</p>
+
+<p align="right"><a href="#047-recording-conditions-so-the-data-is-worth-learning-from">↑ Back to top</a> · <a href="../../README.md">Home</a> · <a href="README.md">All ADRs</a> · <a href="../diagrams/README.md">All diagrams</a></p>

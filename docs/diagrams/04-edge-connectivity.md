@@ -1,5 +1,7 @@
 # 04. Edge connectivity
 
+**Go straight to:** [Home](../../README.md) · [ADRs](../adrs/README.md) · [Diagrams](README.md) · [Implementation](../implementation.md) · [Requirements](../requirements.md) · [Characteristics](../architecture-characteristics.md) · [Brief](../kata-brief.pdf)
+
 How a reading reaches the estate, and what keeps working when the estate loses its connection
 to the outside world.
 
@@ -111,3 +113,9 @@ rather than triggering anything ([047](../adrs/047-environment-and-weather.md)).
 See [040](../adrs/040-connectivity-topology.md) for what runs on the estate and what runs in
 the cloud, [042](../adrs/042-telemetry-model.md) for what travels, and
 [044](../adrs/044-disconnected-operation.md) for the three kinds of outage and how each behaves.
+
+---
+
+<p align="center">❦</p>
+
+<p align="right"><a href="#04-edge-connectivity">↑ Back to top</a> · <a href="../../README.md">Home</a> · <a href="../adrs/README.md">All ADRs</a> · <a href="README.md">All diagrams</a></p>

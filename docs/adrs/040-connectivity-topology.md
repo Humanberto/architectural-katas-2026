@@ -1,5 +1,7 @@
 # 040. Tiered MQTT topology with prioritised local buffering
 
+**Go straight to:** [Home](../../README.md) · [ADRs](README.md) · [Diagrams](../diagrams/README.md) · [Implementation](../implementation.md) · [Requirements](../requirements.md) · [Characteristics](../architecture-characteristics.md) · [Brief](../kata-brief.pdf)
+
 ## Status
 
 Proposed. **Tiers 1 and 2 are amended by [ADR-041](041-hybrid-transport.md)**, which replaces
@@ -89,3 +91,9 @@ authority question, decided in [ADR-043](043-welfare-loop.md), not here.
 - **[ADR-042](042-telemetry-model.md)** defines what travels across this topology
 - **[ADR-043](043-welfare-loop.md)** decides what may act on it
 - **[ADR-044](044-disconnected-operation.md)** covers behaviour during an outage
+
+---
+
+<p align="center">❦</p>
+
+<p align="right"><a href="#040-tiered-mqtt-topology-with-prioritised-local-buffering">↑ Back to top</a> · <a href="../../README.md">Home</a> · <a href="README.md">All ADRs</a> · <a href="../diagrams/README.md">All diagrams</a></p>

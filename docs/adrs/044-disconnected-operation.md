@@ -1,5 +1,7 @@
 # 044. Working while disconnected, and putting the records back together
 
+**Go straight to:** [Home](../../README.md) · [ADRs](README.md) · [Diagrams](../diagrams/README.md) · [Implementation](../implementation.md) · [Requirements](../requirements.md) · [Characteristics](../architecture-characteristics.md) · [Brief](../kata-brief.pdf)
+
 ## Status
 
 Proposed
@@ -111,3 +113,9 @@ because a model cannot ask why a week is empty.
 - **[ADR-042](042-telemetry-model.md)** defines which readings are buffered and which are guaranteed
 - **[ADR-043](043-welfare-loop.md)** defines the alerts this suppresses and summarises
 - **[ADR-047](047-environment-and-weather.md)** depends on gaps being distinguishable from quiet
+
+---
+
+<p align="center">❦</p>
+
+<p align="right"><a href="#044-working-while-disconnected-and-putting-the-records-back-together">↑ Back to top</a> · <a href="../../README.md">Home</a> · <a href="README.md">All ADRs</a> · <a href="../diagrams/README.md">All diagrams</a></p>
