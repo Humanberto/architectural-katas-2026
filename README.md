@@ -34,7 +34,8 @@ next one answers, and every page returns you here.
 | 9 | [All of this leaves a record](#9--all-of-this-leaves-a-record) | Conditions, weather, equipment state, training data |
 | 10 | [Who watches the models?](#10--who-watches-the-models) | Gateway, evaluation gates, drift detection, cost |
 | 11 | [Turning it into money](#11--turning-it-into-money) | Rides, pricing, concierge, copilot, retention |
-| 12 | [Standing back](#12--standing-back) | The decision map and the overview |
+| 12 | [What is actually new here](#12--what-is-actually-new-here) | The five things a default build would not have done |
+| 13 | [Standing back](#13--standing-back) | The decision map and the overview |
 
 **Go straight to:** [Overview](docs/overview.md) · [ADRs](docs/adrs/README.md) ·
 [Diagrams](docs/diagrams/README.md) · [Implementation](docs/implementation.md) ·
@@ -344,9 +345,82 @@ standing in front of an empty enclosure, and how to get them to come back.
 
 <p align="right"><a href="#von-digitalis-estates">↑ Back to top</a></p>
 
+
 <p align="center">❦</p>
 
-## 12 · Standing back
+## 12 · What is actually new here
+
+The Countess asked for AI, and asked that the use of it be innovative. Five things in this
+proposal are not what a team would build by default.
+
+### Counting fish nobody can see
+
+A densely stocked outdoor pond is too turbid to count through, so
+[046](docs/adrs/046-count-reconciliation.md) stops trying to observe the fish and counts
+something they produce instead: jumps, at the surface, where the water is not in the way.
+The count is then reconciled against a number a keeper types. The model is never the
+authority on a population — it is a continuous estimate between two human counts.
+
+### Animals as instruments
+
+[047](docs/adrs/047-environment-and-weather.md) treats 200 animals across 55 enclosures as
+an environmental sensor network the estate already owns. Behaviour that changes across
+several enclosures at once is reporting something about conditions, and it does it in
+places where no instrument was installed and none could be.
+
+### Ground truth that costs nothing and never stops
+
+Every model in this repository is checked against something that is not a model, and in
+every case the check is an action somebody was taking anyway: a keeper closing an alert
+([043](docs/adrs/043-welfare-loop.md)), a count already being recorded
+([046](docs/adrs/046-count-reconciliation.md)), a ticket already being validated
+([045](docs/adrs/045-presence-and-flow.md), [012](docs/adrs/012-admissions-and-ticketing.md)),
+an inspection that happens on its own schedule ([060](docs/adrs/060-ride-condition-monitoring.md)).
+
+There is no labelling project in this proposal and no data team, because
+[022](docs/adrs/022-detecting-ai-misbehaviour.md) reads a signal the operation generates
+for free, forever. On an estate with no ML function ([C13](docs/requirements.md#constraints)),
+that is the difference between verification that happens and verification that was
+planned.
+
+### Making identity impossible, then designing around it
+
+[045](docs/adrs/045-presence-and-flow.md) counts visitors in a way that cannot identify
+them — not as a policy that could be relaxed, but as a property of what is measured. That
+closes off the obvious approach to returning visitors, so
+[064](docs/adrs/064-retention-and-offers.md) builds retention from purchase history and
+population-level demand instead, and says plainly what that costs.
+
+### Knowing something before the first reading arrives
+
+A new enclosure has no history to compare against. [047](docs/adrs/047-environment-and-weather.md)
+starts from three sources of prior knowledge — the keepers' and vets' existing records,
+general knowledge of the species, and the behaviour of comparable enclosures — so the
+system is useful on day one rather than after a year of watching.
+
+### And the restraint is the argument
+
+Seven of nine capabilities are Tier 1 or Tier 2
+([diagram 03](docs/diagrams/03-ai-capability-map.md)). Both generative capabilities only
+advise. Nothing non-deterministic reaches equipment, money, or a safety decision.
+
+That is not caution for its own sake. Anyone can put a language model in front of a park.
+Doing it for a family estate with patchy wifi ([C1](docs/requirements.md#constraints)), no
+technology staff ([C13](docs/requirements.md#constraints)), no budget beyond the funded
+hardware ([C14](docs/requirements.md#constraints)), and a requirement to keep working when
+the cloud is unreachable ([R15](docs/requirements.md#requirements)) — that is the harder
+problem, and it is the one the brief set.
+
+Every generative feature here degrades to something that depends on no provider at all.
+The estate is never worse off than it is today, whatever happens to the network, the
+budget, or the vendor.
+
+<p align="right"><a href="#von-digitalis-estates">↑ Back to top</a></p>
+
+
+<p align="center">❦</p>
+
+## 13 · Standing back
 
 | Read | What it settles |
 |---|---|
