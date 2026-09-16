@@ -5,36 +5,11 @@
 Two views. What is allowed to act on equipment, and how we find out whether the model is still
 any good.
 
-### Key
-
-```mermaid
-flowchart LR
-  k1[/Sensor or device/] ~~~ k2[Runs on the estate] ~~~ k3[Fixed rule, reproducible] ~~~ k4{{Perceptual model}} ~~~ k5([A person]) ~~~ k6[(Data store)]
-
-  classDef t1 fill:#EAF3DE,stroke:#639922,color:#173404
-  classDef t2 fill:#FAEEDA,stroke:#BA7517,color:#412402
-  classDef edge fill:#E1F5EE,stroke:#1D9E75,color:#04342C
-  classDef human fill:#F1EFE8,stroke:#888780,color:#2C2C2A
-  classDef store fill:#FBEAF0,stroke:#D4537E,color:#4B1528
-
-  class k1,k2 edge
-  class k3 t1
-  class k4 t2
-  class k5 human
-  class k6 store
-```
-
-| Arrow | Meaning |
-|---|---|
-| Solid | Happens on its own |
-| Dotted | Advice only, a person decides |
-
-Green is tier 1 and amber is tier 2, from [011](../adrs/011-ai-determinism-tiers.md). Full team
-key in [README](README.md).
 
 ## Who may act
 
 ```mermaid
+%%{init: {'flowchart': {'nodeSpacing': 55, 'rankSpacing': 75, 'curve': 'basis', 'padding': 12}}}%%
 flowchart LR
 
   readings[/Enclosure readings/]
@@ -97,6 +72,7 @@ and nobody waits on a model.
 ## How we know the model still works
 
 ```mermaid
+%%{init: {'flowchart': {'nodeSpacing': 55, 'rankSpacing': 75, 'curve': 'basis', 'padding': 12}}}%%
 flowchart LR
 
   cohort[(Cohort baselines)]
@@ -139,6 +115,33 @@ Many animals at once means the model has drifted, a sensor is dirty, or somethin
 nobody recorded.
 
 Also in [043](../adrs/043-welfare-loop.md).
+
+### Key
+
+```mermaid
+flowchart LR
+  k1[/Sensor or device/] ~~~ k2[Runs on the estate] ~~~ k3[Fixed rule, reproducible] ~~~ k4{{Perceptual model}} ~~~ k5([A person]) ~~~ k6[(Data store)]
+
+  classDef t1 fill:#EAF3DE,stroke:#639922,color:#173404
+  classDef t2 fill:#FAEEDA,stroke:#BA7517,color:#412402
+  classDef edge fill:#E1F5EE,stroke:#1D9E75,color:#04342C
+  classDef human fill:#F1EFE8,stroke:#888780,color:#2C2C2A
+  classDef store fill:#FBEAF0,stroke:#D4537E,color:#4B1528
+
+  class k1,k2 edge
+  class k3 t1
+  class k4 t2
+  class k5 human
+  class k6 store
+```
+
+| Arrow | Meaning |
+|---|---|
+| Solid | Happens on its own |
+| Dotted | Advice only, a person decides |
+
+Green is tier 1 and amber is tier 2, from [011](../adrs/011-ai-determinism-tiers.md). Full team
+key in [README](README.md).
 
 ---
 
