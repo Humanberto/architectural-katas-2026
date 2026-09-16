@@ -7,6 +7,7 @@ allowed to do. This is the picture behind
 [011](../adrs/011-ai-determinism-tiers.md).
 
 ```mermaid
+%%{init: {'flowchart': {'nodeSpacing': 55, 'rankSpacing': 75, 'curve': 'basis', 'padding': 12}}}%%
 flowchart TB
   rule[Use the lowest tier that works]
 
