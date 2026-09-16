@@ -106,6 +106,7 @@ because a visitor asking a question in a park should not be creating a record.
 - **[023](023-ai-cost-control.md)** sets the ceiling and the degradation ladder
 - **[044](044-disconnected-operation.md)** is why the static fallback exists
 - **[045](045-presence-and-flow.md)** is why there is no visitor to personalise for
+- Diagram: [08 Concierge offline behaviour](../diagrams/08-concierge-offline.md)
 - Diagram: [03 AI capability map](../diagrams/03-ai-capability-map.md)
 
 ---

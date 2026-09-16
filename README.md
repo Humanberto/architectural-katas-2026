@@ -337,6 +337,8 @@ Everything so far measures the estate. None of it pays for the estate.
 | Read | What it settles |
 |---|---|
 | [060 to 064](docs/adrs/README.md) | Ride condition, demand and pricing, visitor concierge, operations copilot, retention |
+| [07 Ride condition](docs/diagrams/07-ride-condition.md) | Non-invasive sensing, the advisory, and the inspection boundary, drawn |
+| [08 Concierge offline behaviour](docs/diagrams/08-concierge-offline.md) | What answers with no signal, and what needs the uplink |
 
 The rides are 18th-century and historically important, so their condition is inferred rather
 than instrumented invasively. The rest turns measurements from the earlier chapters into

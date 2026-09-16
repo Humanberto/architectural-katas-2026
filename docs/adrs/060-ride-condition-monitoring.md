@@ -103,6 +103,7 @@ inspection outcome, which arrives on its own schedule and owes the system nothin
 - **[041](041-hybrid-transport.md)**, **[042](042-telemetry-model.md)**, **[044](044-disconnected-operation.md)** carry and buffer the readings
 - **[047](047-environment-and-weather.md)** records conditions alongside them
 - **[022](022-detecting-ai-misbehaviour.md)** reads the disposition log this produces
+- Diagram: [07 Ride condition](../diagrams/07-ride-condition.md)
 - Diagram: [03 AI capability map](../diagrams/03-ai-capability-map.md)
 
 ---
