@@ -8,3 +8,5 @@ desktop.ini
 .venv/
 __pycache__/
 node_modules/
+add-nav.py 
+check-links.py 
