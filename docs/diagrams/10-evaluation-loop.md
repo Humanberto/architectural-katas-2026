@@ -1,44 +1,48 @@
 # 10. Evaluation and drift loop
 
+**Go straight to:** [Home](../../README.md) · [ADRs](../adrs/README.md) · [Diagrams](README.md) · [Implementation](../implementation.md) · [Requirements](../requirements.md) · [Characteristics](../architecture-characteristics.md) · [Brief](../kata-brief.pdf)
+
 How a model or prompt version earns its way to production, and how we know if it stops
 deserving to stay there. Behind [021](../adrs/021-evaluating-ai-before-release.md) and
 [022](../adrs/022-detecting-ai-misbehaviour.md).
 
 ```mermaid
 flowchart TB
-  golden[(Golden set: representative, edge, known-bad)]
-  gate[021 release gate: grounding + grading + audit]
-  canary[Canary: 10% traffic, min 48h / 200 interactions]
-  production[Production: 100% traffic]
+  candidate{{A new model or a new prompt<br/>both count as a release}}
 
-  disposition[(Disposition log: right / wrong / unclear)]
-  groundtruth[(Independent ground truth: ledger, admissions, inspection)]
-  person([Person acting on the output])
+  golden[(Golden set<br/>representative, edge, must-refuse)]
+  gate[021 release gate<br/>runs in CI, blocks the merge]
+  canary[Canary<br/>10% of traffic, 48 hours or 200 calls]
+  production[Full release<br/>all traffic]
 
-  monitor[022 drift monitor: rolling 14-day rate vs gate baseline]
-  digest[Weekly digest]
-  revert[Auto-revert to last known-good]
+  person([Whoever acted on the output<br/>keeper, inspector, ops user])
+  disposition[(Disposition log<br/>right, wrong, or unclear)]
+  groundtruth[(Physical ground truth<br/>keeper count, gate admissions, inspection)]
+
+  monitor[022 drift monitor<br/>14-day rate vs the rate at release]
+  revert[Revert<br/>last known-good version, minutes]
+  digest[Weekly digest<br/>seven lines, one recipient]
   opslead([Operations lead])
 
-  golden --> gate
-  gate -- fail --> golden
+  candidate --> gate
+  golden -- every case, every time --> gate
+  gate -- fail: it does not ship --> candidate
   gate -- pass --> canary
-  canary -- breach --> revert
+  canary -- breach on the 10% slice --> revert
   canary -- clean --> production
 
   production --> disposition
   production --> groundtruth
-  person --> disposition
+  person -- costs nothing, they were closing it anyway --> disposition
 
-  disposition --> monitor
-  groundtruth --> monitor
+  disposition -- did it turn out to be right --> monitor
+  groundtruth -- does the model still agree with the world --> monitor
 
-  monitor -- Tier 1/2: alert only --> digest
-  monitor -- Tier 3: breach --> revert
-  monitor --> digest
+  monitor -- Tier 1 and 2: a person is already downstream --> digest
+  monitor -- Tier 3: nothing is downstream, so revert first --> revert
+  monitor -. an audit finding becomes a new case .-> golden
   digest --> opslead
-  revert -.-> canary
-  monitor -. audit sample .-> golden
+  revert -. previous version resumes .-> production
 
   classDef t1 fill:#EAF3DE,stroke:#639922,color:#173404
   classDef t2 fill:#FAEEDA,stroke:#BA7517,color:#412402
@@ -49,6 +53,7 @@ flowchart TB
   classDef store fill:#FBEAF0,stroke:#D4537E,color:#4B1528
   classDef ext fill:#FCEBEB,stroke:#E24B4A,color:#501313
 
+  class candidate t3
   class golden,disposition,groundtruth store
   class gate,canary,production,monitor,digest,revert cloud
   class person,opslead human
@@ -56,21 +61,31 @@ flowchart TB
 
 ## Reading it
 
-- The top half is **before release** (021): nothing reaches even a canary slice without
-  passing the golden set.
-- The bottom half is **after release** (022): the disposition log and the ground-truth
-  comparison are the same two signals whether the capability is a day old or a year old
-  — there is no separate "monitoring" system to build.
-- The loop closes twice: a **breach** reverts to the last known-good version (dashed,
-  back toward canary/gateway), and an **audit finding** adds a case to the golden set
-  (dashed, back to the top), so the gate gets stricter over time instead of staying
-  static.
-- Tier 1/2 and Tier 3 diverge only at the monitor: Tier 1/2 always has a person or a
-  ledger downstream already, so a breach alerts; Tier 3 has no such backstop, so a
-  breach reverts automatically and then alerts.
+- Read it top to bottom once and the shape is: **nothing ships unproven, nothing stays
+  unwatched.** The top half is [021](../adrs/021-evaluating-ai-before-release.md), the bottom half is [022](../adrs/022-detecting-ai-misbehaviour.md), and they share the
+  golden set, so the same evidence works before and after release.
+- A prompt edit enters at the same top box as a new model. That is the point of the
+  label: wording is how grounding and refusal behaviour break, so it gets the full gate.
+- The two pink stores are the whole detection strategy. Neither costs anything to
+  produce: the **disposition** is a keeper closing an alert they had to close anyway,
+  and the **ground truth** is a count somebody was already taking. No labelling project,
+  no data team.
+- The two arrows out of the monitor are the one place tiers behave differently, and the
+  edge labels say why rather than just what. Tier 1 and 2 always have a person or a
+  physical count standing behind them ([043](../adrs/043-welfare-loop.md), [045](../adrs/045-presence-and-flow.md), [046](../adrs/046-count-reconciliation.md)), so an alert is enough.
+  Tier 3 has nothing behind it, so the gateway reverts first and tells someone after.
+- The loop closes twice. A breach puts the last known-good version back. An audit
+  finding becomes a new golden-set case, so the gate gets stricter over time instead of
+  aging into a formality.
 
 ## Open questions
 
-- Whether 14 days and 10 percentage points (022) are the right sensitivity once real
+- Whether 14 days and 10 percentage points ([022](../adrs/022-detecting-ai-misbehaviour.md)) are the right sensitivity once real
   disposition data exists, or whether they need tuning per capability rather than one
   shared threshold.
+
+---
+
+<p align="center">❦</p>
+
+<p align="right"><a href="#10-evaluation-and-drift-loop">↑ Back to top</a> · <a href="../../README.md">Home</a> · <a href="../adrs/README.md">All ADRs</a> · <a href="README.md">All diagrams</a></p>
