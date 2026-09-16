@@ -2,39 +2,14 @@
 
 **Go straight to:** [Home](../../README.md) · [ADRs](../adrs/README.md) · [Diagrams](README.md) · [Implementation](../implementation.md) · [Requirements](../requirements.md) · [Characteristics](../architecture-characteristics.md) · [Brief](../kata-brief.pdf)
 
+
 Counting visitors without creating anything that identifies one. Decided in
 [045](../adrs/045-presence-and-flow.md).
-
-### Key
-
-```mermaid
-flowchart LR
-  k1[/Sensor or device/] ~~~ k2[Runs on the estate] ~~~ k3[Deterministic, reproducible] ~~~ k4{{Perceptual model}} ~~~ k5([A person]) ~~~ k6[(Data store)]
-
-  classDef t1 fill:#EAF3DE,stroke:#639922,color:#173404
-  classDef t2 fill:#FAEEDA,stroke:#BA7517,color:#412402
-  classDef edge fill:#E1F5EE,stroke:#1D9E75,color:#04342C
-  classDef human fill:#F1EFE8,stroke:#888780,color:#2C2C2A
-  classDef store fill:#FBEAF0,stroke:#D4537E,color:#4B1528
-
-  class k1,k2 edge
-  class k3 t1
-  class k4 t2
-  class k5 human
-  class k6 store
-```
-
-| Arrow | Meaning |
-|---|---|
-| Solid | A recorded fact |
-| Dotted | An inference, presented as one |
-
-Green is tier 1 and amber is tier 2, from [011](../adrs/011-ai-determinism-tiers.md). Full team
-key in [README](README.md).
 
 ## Counting, and checking the count
 
 ```mermaid
+%%{init: {'flowchart': {'nodeSpacing': 55, 'rankSpacing': 75, 'curve': 'basis', 'padding': 12}}}%%
 flowchart LR
 
   counters[/Path counters/]
@@ -114,6 +89,34 @@ once the counters exist.
 
 If a relationship turns out to be real, feeding schedules move, which would be a welfare
 improvement derived from a visitor sensor.
+
+
+### Key
+
+```mermaid
+flowchart LR
+  k1[/Sensor or device/] ~~~ k2[Runs on the estate] ~~~ k3[Deterministic, reproducible] ~~~ k4{{Perceptual model}} ~~~ k5([A person]) ~~~ k6[(Data store)]
+
+  classDef t1 fill:#EAF3DE,stroke:#639922,color:#173404
+  classDef t2 fill:#FAEEDA,stroke:#BA7517,color:#412402
+  classDef edge fill:#E1F5EE,stroke:#1D9E75,color:#04342C
+  classDef human fill:#F1EFE8,stroke:#888780,color:#2C2C2A
+  classDef store fill:#FBEAF0,stroke:#D4537E,color:#4B1528
+
+  class k1,k2 edge
+  class k3 t1
+  class k4 t2
+  class k5 human
+  class k6 store
+```
+
+| Arrow | Meaning |
+|---|---|
+| Solid | A recorded fact |
+| Dotted | An inference, presented as one |
+
+Green is tier 1 and amber is tier 2, from [011](../adrs/011-ai-determinism-tiers.md). Full team
+key in [README](README.md).
 
 ---
 
