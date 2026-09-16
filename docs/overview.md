@@ -5,12 +5,12 @@
 ## The problem in one paragraph
 
 The Von Digitalis estates are unprofitable, the garden gnome business is gone, and visitor
-numbers must roughly triple within three years or the carnivorous plants are sold (P1, P5,
-C8). The Countess needs four things: a way to sell and check tickets, an understanding of
+numbers must roughly triple within three years or the carnivorous plants are sold ([P1](requirements.md#problems), [P5](requirements.md#problems),
+[C8](requirements.md#constraints)). The Countess needs four things: a way to sell and check tickets, an understanding of
 which parts of the estate people actually visit, confidence that 200-odd exotic animals
-across 55 enclosures are well, and more visitors who come back (R1, R3, R5, R10). She has
+across 55 enclosures are well, and more visitors who come back ([R1](requirements.md#requirements), [R3](requirements.md#requirements), [R5](requirements.md#requirements), [R10](requirements.md#requirements)). She has
 patchy wifi, Victorian conduit, one internal IT person, and a budget that covers MQTT
-hardware and not much else (C1, C13, C14).
+hardware and not much else ([C1](requirements.md#constraints), [C13](requirements.md#constraints), [C14](requirements.md#constraints)).
 
 ## Our approach
 
@@ -78,7 +78,7 @@ and by what each is allowed to do.
 
 ## How we deal with AI uncertainty
 
-Models and providers change fast, and the estate cannot absorb a surprise (C11, C14). Our
+Models and providers change fast, and the estate cannot absorb a surprise ([C11](requirements.md#constraints), [C14](requirements.md#constraints)). Our
 main defence is structural rather than clever: only two capabilities use a hosted language
 model at all. Everything else runs on hardware already paid for. A provider tripling its
 price or shutting down costs the Countess two features — not her revenue, and not her

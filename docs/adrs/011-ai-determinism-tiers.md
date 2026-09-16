@@ -8,11 +8,11 @@ Proposed
 
 ## Context
 
-The brief asks us to use AI innovatively (R12), to validate and verify its results
-including detecting misbehaviour in production (R13), and to survive a model or provider
-changing, repricing or shutting down (R14). It also tells us models and providers change
-fast (C11), generative behaviour is non-deterministic (C12), and this is a family estate
-with a small operations staff and no in-house ML team (C13).
+The brief asks us to use AI innovatively ([R12](../requirements.md#requirements)), to validate and verify its results
+including detecting misbehaviour in production ([R13](../requirements.md#requirements)), and to survive a model or provider
+changing, repricing or shutting down ([R14](../requirements.md#requirements)). It also tells us models and providers change
+fast ([C11](../requirements.md#constraints)), generative behaviour is non-deterministic ([C12](../requirements.md#constraints)), and this is a family estate
+with a small operations staff and no in-house ML team ([C13](../requirements.md#constraints)).
 
 Read together, those pull against each other. The obvious way to look innovative is to
 put a language model in front of every problem. The obvious way to be verifiable,
@@ -34,11 +34,11 @@ Two alternatives were considered.
 
 **A. Generative-first, with a single model behind everything.** One integration, one
 skill to learn, maximally impressive on the surface. Rejected: it maximises exposure to
-C11 and C12 precisely where R13 is hardest to satisfy, and it makes the estate's welfare
+[C11](../requirements.md#constraints) and [C12](../requirements.md#constraints) precisely where [R13](../requirements.md#requirements) is hardest to satisfy, and it makes the estate's welfare
 monitoring dependent on an external provider's uptime and pricing.
 
 **B. Prohibit generative AI entirely.** Maximally verifiable and cheap. Rejected: it
-fails R12, and it is wrong on the merits. There are two places here where the interface
+fails [R12](../requirements.md#requirements), and it is wrong on the merits. There are two places here where the interface
 genuinely is open-ended natural language, and refusing to use the right tool there would
 be as unthinking as using it everywhere.
 
@@ -73,21 +73,21 @@ Three rules follow.
    anything a model infers may only advise — from welfare to the whole system. Nothing
    generative moves money, opens a ride, or overrules a person.
 3. **Every AI output is stored with its tier, model identifier, version, confidence and a
-   reference to the input that produced it.** Without this, R13 is unachievable, because
+   reference to the input that produced it.** Without this, [R13](../requirements.md#requirements) is unachievable, because
    there is nothing to compare a suspect output against.
 
 ## Consequences
 
 ### Positive
 
-- R13 becomes tractable. Most capabilities are verifiable by conventional testing, and
+- [R13](../requirements.md#requirements) becomes tractable. Most capabilities are verifiable by conventional testing, and
   the few that are not have a named independent ground truth.
-- R14 exposure is confined to a small number of capabilities rather than spread across
+- [R14](../requirements.md#requirements) exposure is confined to a small number of capabilities rather than spread across
   the system. A provider shutting down costs us features, not revenue or animal welfare.
 - Cost scales with the cheap tiers rather than the expensive one, which matters given
-  C14.
-- Tier 1 and 2 models run on the estate, so they keep working while disconnected (R15,
-  C1) — something no hosted language model can offer.
+  [C14](../requirements.md#constraints).
+- Tier 1 and 2 models run on the estate, so they keep working while disconnected ([R15](../requirements.md#requirements),
+  [C1](../requirements.md#constraints)) — something no hosted language model can offer.
 - It gives the team a one-line answer to "should this be AI?" that does not need
   relitigating each time.
 

@@ -8,16 +8,16 @@ Proposed
 
 ## Context
 
-There is no ticketing or admission system today (P8). We need to sell tickets including
-family passes (R1) and validate admission at entry at scale (R2), growing from 5,000 to
-15,000 visitors a day over three years (C8, C9).
+There is no ticketing or admission system today ([P8](../requirements.md#problems)). We need to sell tickets including
+family passes ([R1](../requirements.md#requirements)) and validate admission at entry at scale ([R2](../requirements.md#requirements)), growing from 5,000 to
+15,000 visitors a day over three years ([C8](../requirements.md#constraints), [C9](../requirements.md#constraints)).
 
 The hard part is not selling. It is the gate.
 
-Wifi coverage across the park is patchy (C1), and the estate must keep operating while
-disconnected from the cloud (R15). A gate that cannot validate a pass without a network
+Wifi coverage across the park is patchy ([C1](../requirements.md#constraints)), and the estate must keep operating while
+disconnected from the cloud ([R15](../requirements.md#requirements)). A gate that cannot validate a pass without a network
 call is a gate that forms a queue on the one Saturday the estate most needs to not have
-a queue. Given P4 and R10 — the estate's difficulty in attracting returning visitors —
+a queue. Given [P4](../requirements.md#problems) and [R10](../requirements.md#requirements) — the estate's difficulty in attracting returning visitors —
 an hour lost at the entrance is expensive well beyond that day's revenue.
 
 Family passes are what make the data model non-trivial. A pass admits a defined party,
@@ -27,7 +27,7 @@ is worse than rejecting it.
 
 Three alternatives were considered.
 
-**A. Buy third-party ticketing software.** Genuinely attractive given C13 and C14: it is
+**A. Buy third-party ticketing software.** Genuinely attractive given [C13](../requirements.md#constraints) and [C14](../requirements.md#constraints): it is
 a solved commercial problem and nobody on this team has to maintain it. Rejected on the
 gate, not the sale. Off-the-shelf systems assume connectivity at the point of scan, and
 the estate's constraint is precisely that connectivity is unreliable. We would still be
@@ -35,7 +35,7 @@ building the offline path, and we would be building it against someone else's da
 Worth revisiting if a product with genuine offline validation is found.
 
 **B. Online-only validation.** Gate scanners call the admissions service on every scan.
-Simple, immediately consistent, no re-use window at all. Rejected by C1 and R15.
+Simple, immediately consistent, no re-use window at all. Rejected by [C1](../requirements.md#constraints) and [R15](../requirements.md#requirements).
 
 **C. Admissions as microservices.** Rejected in [010](010-architecture-style.md): it
 converts the family-pass invariants into distributed transactions to buy elasticity we do
@@ -76,12 +76,12 @@ reconciled, which is what makes the presence-sensing verification in C's range p
 
 ### Positive
 
-- Gates work with no network, which is the only acceptable answer given C1.
+- Gates work with no network, which is the only acceptable answer given [C1](../requirements.md#constraints).
 - Family-pass correctness is enforced by a database transaction rather than by
   compensating logic.
-- One deployable and one database is operable by a small staff (C13).
+- One deployable and one database is operable by a small staff ([C13](../requirements.md#constraints)).
 - Admission events give the analytics layer a trustworthy denominator for every
-  popularity and conversion measure (R3, R4).
+  popularity and conversion measure ([R3](../requirements.md#requirements), [R4](../requirements.md#requirements)).
 - There is no AI anywhere in this record, which is the correct answer for a payment and
   entitlement system and consistent with [011](011-ai-determinism-tiers.md).
 

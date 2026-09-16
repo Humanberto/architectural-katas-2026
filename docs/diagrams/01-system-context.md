@@ -48,7 +48,7 @@ flowchart TB
 ## Notes
 
 Six kinds of person, three external dependencies. Only one of those dependencies —
-model providers — is volatile (C11), and only two capabilities use it, which is the
+model providers — is volatile ([C11](../requirements.md#constraints)), and only two capabilities use it, which is the
 argument made in [011](../adrs/011-ai-determinism-tiers.md).
 
 The vet appears as an actor rather than a role inside the estate because

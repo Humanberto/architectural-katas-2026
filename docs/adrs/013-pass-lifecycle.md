@@ -25,18 +25,18 @@ control until somebody presents it at a gate, and everything that happens to it 
 season ends — has to be handled without assuming the gate can ask anyone anything.
 
 The commercial frame from 012 has not changed. Given the estate's difficulty attracting
-returning visitors (P4, R10), a queue at the entrance costs far more than the fraud it
+returning visitors ([P4](../requirements.md#problems), [R10](../requirements.md#requirements)), a queue at the entrance costs far more than the fraud it
 prevents. Every decision below resolves in favour of admitting the visitor.
 
 ### Sizing the problem
 
-At the three-year target of 15,000 visitors a day (C8, C9) and an assumed average party of
+At the three-year target of 15,000 visitors a day ([C8](../requirements.md#constraints), [C9](../requirements.md#constraints)) and an assumed average party of
 2.5, the estate issues roughly 6,000 passes a day. These are the numbers the rest of this
 record argues against.
 
 | Quantity | Figure | Basis |
 |---|---|---|
-| Passes issued per day at target | ~6,000 | 15,000 visitors (C8) ÷ 2.5 per party |
+| Passes issued per day at target | ~6,000 | 15,000 visitors ([C8](../requirements.md#constraints)) ÷ 2.5 per party |
 | Revocation rate | 3% of sales | Assumed. Refunds, reported losses, fraud |
 | Revocations per day | ~180 | 6,000 × 3% |
 | Revoked passes valid on any one day | ~1,300 | 180/day across a 7-day multi-day window |
@@ -58,7 +58,7 @@ away.
 pattern. A token valid for minutes makes revocation almost unnecessary, because anything
 revoked expires before it matters. Rejected because it relocates the connectivity
 dependency onto the one component we do not control. A family arriving at a rural estate
-with patchy coverage (C1) and a flat battery cannot refresh, and the failure lands at the
+with patchy coverage ([C1](../requirements.md#constraints)) and a flat battery cannot refresh, and the failure lands at the
 gate anyway — but now we cannot fix it. It also excludes printed passes, which a family
 estate selling to families needs.
 
@@ -97,9 +97,9 @@ pass ever revoked. The list self-prunes at midnight.
 | Approach | Entries | Size at 17 bytes/entry | Growth |
 |---|---|---|---|
 | Valid-today, as decided | ~1,300 | ~22 KB | Bounded, self-pruning |
-| All-time, over the C9 horizon | ~197,000 | ~3.4 MB | Unbounded, no pruning point |
+| All-time, over the [C9](../requirements.md#constraints) horizon | ~197,000 | ~3.4 MB | Unbounded, no pruning point |
 
-Twenty-two kilobytes refreshes over patchy wifi (C1) in a single request. This turns 012's
+Twenty-two kilobytes refreshes over patchy wifi ([C1](../requirements.md#constraints)) in a single request. This turns 012's
 assumption into a property of the design: the list is small because of how it is scoped,
 not because we are hoping refunds stay rare. Even a tenfold rise in the revocation rate
 leaves it under a quarter of a megabyte.
@@ -158,8 +158,8 @@ rotation routine; we have not made compromise cheap, and we are not claiming to.
 
 ### Gates are wired. Offline is the degraded mode, not the resting state
 
-C1 says wifi coverage *across the park* is patchy, and it is — 55 enclosures and 40 rides
-(C4, C5) are spread across an estate where running cable to every point is exactly the
+[C1](../requirements.md#constraints) says wifi coverage *across the park* is patchy, and it is — 55 enclosures and 40 rides
+([C4](../requirements.md#constraints), [C5](../requirements.md#constraints)) are spread across an estate where running cable to every point is exactly the
 impractical thing that made MQTT the answer in [040](040-connectivity-topology.md).
 
 Gates are not that. They are a small number of fixed buildings on the perimeter, and they
@@ -171,7 +171,7 @@ that fails. This does not weaken 012 — its requirement stands in full, and the
 is built, tested and used. It changes only what we call normal, and therefore how stale we
 should expect the deny list to be when it matters.
 
-This is a spend beyond the MQTT-capable baseline, which C14 requires us to argue for rather
+This is a spend beyond the MQTT-capable baseline, which [C14](../requirements.md#constraints) requires us to argue for rather
 than assume. The argument is above; the cost is in the Negative section.
 
 ### Staleness never stops the gate
@@ -199,7 +199,7 @@ analytics through the estate API path that 042 reserves for transactional system
 - Payment authorisation and card handling. External provider, per 012. We store no card
   data.
 - Pricing, discounting and the purchase funnel. Seat D's range.
-- Reconciliation of admission events into popularity and conversion measures (R3, R4).
+- Reconciliation of admission events into popularity and conversion measures ([R3](../requirements.md#requirements), [R4](../requirements.md#requirements)).
   012 establishes admission events as the denominator; the analysis is elsewhere.
 - Key custody mechanics — HSM versus software keystore — which is an implementation choice,
   not an architectural one.
@@ -212,10 +212,10 @@ analytics through the estate API path that 042 reserves for transactional system
 - The deny list is the only shared state a gate needs, and it is ~22 KB. Everything else a
   scanner must know is in the token or in its trusted key set.
 - Routine key rotation costs nothing operationally, which matters given a small operations
-  staff (C13).
+  staff ([C13](../requirements.md#constraints)).
 - A customer who paid for an upgrade is never turned away at the gate for holding the old
   token.
-- The revocation-list size argument now survives growth to 15,000 visitors a day (C8) by
+- The revocation-list size argument now survives growth to 15,000 visitors a day ([C8](../requirements.md#constraints)) by
   construction rather than by assumption.
 - Amendment correctness is a single database transaction, consistent with 010 and 012.
 - Still no AI anywhere in this record, which remains the correct answer for entitlements
@@ -223,7 +223,7 @@ analytics through the estate API path that 042 reserves for transactional system
 
 ### Negative
 
-- Wiring the gates is capital spend outside the funded baseline (C3, C14). It is a handful
+- Wiring the gates is capital spend outside the funded baseline ([C3](../requirements.md#constraints), [C14](../requirements.md#constraints)). It is a handful
   of fixed locations rather than park-wide coverage, but nobody has itemised it and the
   estate has to agree to it.
 - Two deny-list classes is more logic on cheap scanner hardware than one, and the
