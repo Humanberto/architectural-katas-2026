@@ -6,21 +6,24 @@ in sync.
 
 To edit one, edit the fenced block. To add one, copy an existing file.
 
-| Diagram | Shows | Seat |
+| Diagram | Shows | Behind it |
 |---|---|---|
-| [01 System context](01-system-context.md) | Who uses the estate systems and what we depend on | A |
-| [02 Container view](02-container-view.md) | The whole system, one page | A |
-| [03 AI capability map](03-ai-capability-map.md) | Every AI capability, its tier and its authority | A |
-| [04 Edge connectivity](04-edge-connectivity.md) | Brokers, buffering, what survives a partition | C |
-| [05 Welfare monitoring](05-welfare-monitoring.md) | Sensors to alert to keeper | C |
-| [06 Presence and flow](06-presence-and-flow.md) | Counting without identifying | C |
-| 07 Ride condition | Sensing, advisory, and the inspection boundary | D — **[add or delete reference]** |
-| 08 Concierge offline behaviour | What is cached and what needs signal | D — **[add or delete reference]** |
-| 09 Pass lifecycle | Issue, validate, reconcile | A — **[add or delete reference]**, sits on `adr/013-pass-lifecycle` |
+| [01 System context](01-system-context.md) | Who uses the estate systems, and what we depend on outside them | — |
+| [02 Container view](02-container-view.md) | The whole system on one page | [010](../adrs/010-architecture-style.md) |
+| [03 AI capability map](03-ai-capability-map.md) | Every AI capability, its tier, and what it is allowed to do | [011](../adrs/011-ai-determinism-tiers.md) |
+| [04 Edge connectivity](04-edge-connectivity.md) | Brokers, buffering, and what survives a partition | [040](../adrs/040-connectivity-topology.md), [041](../adrs/041-hybrid-transport.md) |
+| [05 Welfare monitoring](05-welfare-monitoring.md) | Enclosure sensors through to a keeper acting on an alert | [043](../adrs/043-welfare-loop.md) |
+| [06 Presence and flow](06-presence-and-flow.md) | Counting visitors without identifying one | [045](../adrs/045-presence-and-flow.md) |
+| 07 Ride condition **[add or remove]** | Sensing, advisory, and the inspection boundary | [060](../adrs/060-ride-condition-monitoring.md) |
+| 08 Concierge offline behaviour **[add or remove]** | What is cached at the gate, and what needs a signal | [062](../adrs/062-visitor-concierge.md) |
+| [09 Pass lifecycle](09-pass-lifecycle.md) | Every state a pass moves through, and what a gate does in each | [013](../adrs/013-pass-lifecycle.md) |
 
-Rows 01 to 06 exist. Rows marked **[add or delete reference]** do not exist in this
-branch: either the diagram gets drawn or the row comes out before we submit. An index
-that promises a picture nobody can open is worse than a shorter index.
+Rows marked **[add or remove]** do not exist yet. Before we submit, either the diagram
+lands or the row comes out — an index that promises a picture nobody can open is worse
+than a shorter index.
+
+Start with 02 for the shape of the system and 03 for where AI sits inside it. The rest
+are targeted views of one capability each.
 
 ## The key
 

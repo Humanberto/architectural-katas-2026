@@ -19,13 +19,23 @@ Full brief: [`docs/kata-brief.pdf`](docs/kata-brief.pdf)
 
 ## Deliverables
 
+**Start here: [`docs/overview.md`](docs/overview.md)** — the whole proposal in two pages.
+
 | Deliverable | Where |
 |-------------|-------|
 | Overview: short narrative of how the team used AI to solve the Countess's problems | [`docs/overview.md`](docs/overview.md) |
-| Diagrams: comprehensive and targeted views for each use of AI | [`docs/diagrams/`](docs/diagrams/) |
-| ADRs for AI-related decisions, with trade-off analysis | [`docs/adrs/`](docs/adrs/) |
+| Diagrams: comprehensive and targeted views for each use of AI | [`docs/diagrams/`](docs/diagrams/README.md) |
+| ADRs for AI-related decisions, with trade-off analysis | [`docs/adrs/`](docs/adrs/README.md) |
 | (optional) Pertinent implementation details | [`docs/implementation.md`](docs/implementation.md) |
 | (semi-finalists) Five-minute video | link to be added |
+
+## Supporting documents
+
+| Document | What it is |
+|----------|------------|
+| [Architectural characteristics](docs/architecture-characteristics.md) | What we optimised for, in order, and what we deliberately gave up |
+| [Problems, requirements and constraints](docs/requirements.md) | Everything the brief tells us, with an identifier so records can cite it |
+| [Roles and working agreement](docs/roles.md) | How the four of us divided the work |
 
 ## Evaluation criteria
 
