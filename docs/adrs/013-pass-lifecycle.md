@@ -69,7 +69,7 @@ rejected online-only validation on the same ground.
 ## Decision
 
 The states and transitions below are drawn in
-[09 Pass lifecycle](../diagrams/09-pass-lifecycle.md).
+[09 Pass lifecycle](../diagrams/11-pass-lifecycle.md).
 
 ### Re-entry is allowed, so a pass has no consumed state
 

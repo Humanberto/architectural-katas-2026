@@ -95,8 +95,8 @@ Three rules follow.
   a problem we have classed as Tier 1, and the justification requirement adds friction to
   discovering that.
 - Three tiers means three verification approaches to build and maintain rather than one.
-- It may read as unambitious to a judge scanning for innovative AI use. The overview has
-  to make the argument explicitly rather than assuming it is self-evident.
+- It may read as unambitious to anyone expecting AI in every component. The overview has
+  to make the argument to the Countess explicitly rather than assume it is self-evident.
 - Storing provenance on every AI output adds volume to the welfare and analytics stores.
 
 ### Assumptions

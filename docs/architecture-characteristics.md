@@ -79,24 +79,22 @@ Tuesday, and we say so in the ADR.
 
 ## Where each characteristic is realised
 
-Linked numbers are written. Plain numbers are not written yet.
+Linked numbers are records in this repository. Plain numbers are decisions we have
+identified but not yet written up.
 
-| Characteristic | Realised by | Seats |
-|---|---|---|
-| Resilience under intermittent connectivity | Satellite brokers with prioritised local buffering ([040](adrs/040-connectivity-topology.md), [042](adrs/042-telemetry-model.md)); offline-verifiable passes ([012](adrs/012-admissions-and-ticketing.md)); content cached at the gate so the visitor app works with no signal (062); reconciliation after a partition (044) | A, C, D |
-| Data integrity, welfare and money | Vet-set thresholds with AI advising only ([043](adrs/043-welfare-loop.md)); statutory inspection as the sole safety authority for rides (060); admission events as the estate-wide ground truth ([012](adrs/012-admissions-and-ticketing.md)) | A, C, D |
-| Replaceability of AI | Capability-based model gateway (020) | B |
-| Cost efficiency | Lowest tier that works ([011](adrs/011-ai-determinism-tiers.md)); per-capability ceilings and graceful degradation (023) | A, B |
-| Observability of non-determinism | Evaluation before release (021) and drift detection with rollback (022); the generated query shown beside the answer (063); population estimate reconciled against a keeper stock ledger (046) | B, C, D |
-| Scoped elasticity | Single transactional core with an elastic public path ([010](adrs/010-architecture-style.md), [012](adrs/012-admissions-and-ticketing.md)); demand forecast driving capacity release and rostering (061) | A, D |
+| Characteristic | Realised by |
+|---|---|
+| Resilience under intermittent connectivity | Satellite brokers with prioritised local buffering ([040](adrs/040-connectivity-topology.md), [042](adrs/042-telemetry-model.md)); offline-verifiable passes ([012](adrs/012-admissions-and-ticketing.md)); content cached at the gate so the visitor app works with no signal (062); reconciliation after a partition (044) |
+| Data integrity, welfare and money | Vet-set thresholds with AI advising only ([043](adrs/043-welfare-loop.md)); statutory inspection as the sole safety authority for rides (060); admission events as the estate-wide ground truth ([012](adrs/012-admissions-and-ticketing.md)) |
+| Replaceability of AI | Capability-based model gateway (020) |
+| Cost efficiency | Lowest tier that works ([011](adrs/011-ai-determinism-tiers.md)); per-capability ceilings and graceful degradation (023) |
+| Observability of non-determinism | Evaluation before release (021) and drift detection with rollback (022); the generated query shown beside the answer (063); population estimate reconciled against a keeper stock ledger (046) |
+| Scoped elasticity | Single transactional core with an elastic public path ([010](adrs/010-architecture-style.md), [012](adrs/012-admissions-and-ticketing.md)); demand forecast driving capacity release and rostering (061) |
 
-Every seat realises at least two characteristics, which is the point of the split — no
-seat is decoration.
-
-Two things this table exposes. Replaceability of AI rests on a single unwritten record,
-020, so seat B is on the critical path for a whole characteristic. And the majority of
-the cells backing observability are unwritten, which is the criterion judges score
-hardest and the one most likely to be thin at the cold read.
+Two gaps are worth stating plainly. Replaceability of AI rests on a single record, 020,
+which is not yet written. And most of what backs observability is still to be written —
+which is the hardest of these characteristics to evidence, and the one where a proposal
+is most easily taken on trust when it should not be.
 
 ## The one rule that follows from all of this
 
@@ -106,17 +104,3 @@ forecasting problems, and treating them as such is cheaper, more verifiable, and
 when the network does not. This is stated properly in
 [011](adrs/011-ai-determinism-tiers.md).
 
-## How to argue with this page
-
-This is a draft ranking, not a settled one. The useful challenge is not "resilience
-matters less than you think" — it is a concrete case where the ranking gives the wrong
-answer.
-
-Bring one of these:
-
-- A decision you want to make that this ranking forbids.
-- A place where two characteristics conflict and the order here picks the loser.
-- Something on the de-prioritised list that you think we will regret.
-
-Once the ranking is agreed, changing it means changing this file and saying what it
-breaks, not reopening it in a thread.

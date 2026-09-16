@@ -1,4 +1,4 @@
-# 09. Pass lifecycle
+# 11. Pass lifecycle
 
 Every state a pass moves through from purchase to expiry, and what a gate does in each.
 This is the picture behind [013](../adrs/013-pass-lifecycle.md).

@@ -7,4 +7,4 @@
    cd architectural-katas-2026
    ```
 3. Add your GitHub handle to the team table in `README.md` and open a pull request (see `CONTRIBUTING.md`).
-4. Read the brief in `docs/kata-brief.pdf` and the judging criteria in `README.md`.
+4. Read the brief in `docs/kata-brief.pdf` and the evaluation criteria in `README.md`.

@@ -7,7 +7,7 @@ everyone is reading the same version.
 
 | | Seat | Owns | ADR range |
 | --- | --- | --- | --- |
-| **A** | Lead and integrator | The characteristics ranking, the comprehensive view, everything judges read first, admissions and ticketing | 010–019 |
+| **A** | Lead and integrator | The characteristics ranking, the comprehensive view, everything the Countess sees first, admissions and ticketing | 010–019 |
 | **B** | AI platform and assurance | Model gateway, evaluation, cost control, authority boundaries | 020–039 |
 | **C** | Edge and animals | Connectivity, welfare, the physical estate | 040–059 |
 | **D** | Visitors, rides and money | Rides, pricing, concierge, copilot, retention | 060–079 |
@@ -102,11 +102,11 @@ Two ideas; everything else is negotiable.
 
 ## Notes per seat
 
-- **B** holds three of the six judging criteria. If anything needs reinforcing at the cold
+- **B** holds three of the six evaluation criteria. If anything needs reinforcing at the cold
   read, this is the highest-value place to put it.
 - **C** is furthest ahead — 040, 042 and 043 are written. C also holds the strongest
   verification story, where a model's estimate is reconciled against an independent
-  physical record. Worth writing so a judge cannot miss it.
+  physical record. Worth writing so the Countess cannot miss it.
 - **D** has the widest span, and the two generative capabilities are the easiest to
   over-claim. Keep the authority boundaries tight.
 - **A** owns the artefacts that fail silently. Nobody chases anyone for a README.
