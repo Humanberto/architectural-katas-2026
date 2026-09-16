@@ -36,7 +36,7 @@ next one answers, and every page returns you here.
 | 11 | [Turning it into money](#11--turning-it-into-money) | Rides, pricing, concierge, copilot, retention |
 | 12 | [Standing back](#12--standing-back) | The decision map and the overview |
 
-**Go straight to:** [Overview](docs/overview.md) · [Architectural characteristics](docs/architecture-characteristics.md) · [ADRs](docs/adrs/README.md) ·
+**Go straight to:** [Overview](docs/overview.md) · [ADRs](docs/adrs/README.md) ·
 [Diagrams](docs/diagrams/README.md) · [Implementation](docs/implementation.md) ·
 [Requirements](docs/requirements.md) · [Brief](docs/kata-brief.pdf)
 
@@ -59,7 +59,7 @@ family may be forced to sell the carnivorous plant collection.
 The Countess asked for six things: sell tickets including family passes, understand how popular
 different parts of the park are, monitor animal health and how much and how well they are
 eating, check piranha population levels, grow visitor numbers, and make the estates more
-profitable. The brief asked for a seventh: place the focus on how AI could solve these
+profitable. The judges asked for a seventh: place the focus on how AI could solve these
 problems, and prove the results can be trusted.
 
 Every problem, requirement and constraint has an identifier, and every decision record cites
@@ -304,7 +304,7 @@ error, no exception, and nothing broken. The brief asks for this specifically.
 | [021 Evaluating before release](docs/adrs/021-evaluating-ai-before-release.md) | A CI gate per tier, with grounding checks and a human audit that relaxes only after three clean releases |
 | [022 Detecting misbehaviour](docs/adrs/022-detecting-ai-misbehaviour.md) | A rolling fourteen-day disposition rate against the release baseline, and automatic rollback for generative capabilities |
 | [023 Cost control](docs/adrs/023-ai-cost-control.md) | Cost per thousand visitors, a declared ceiling per capability, and a ladder that degrades rather than switches off |
-| [10 Model gateway](docs/diagrams/10-model-gateway.md) · [11 Evaluation and drift loop](docs/diagrams/11-evaluation-loop.md) | Both, drawn |
+| [09 Model gateway](docs/diagrams/09-model-gateway.md) · [10 Evaluation and drift loop](docs/diagrams/10-evaluation-loop.md) | Both, drawn |
 | [Implementation](docs/implementation.md) | Golden set format, the CI gate, the cost formula, the degradation ladder as code |
 | [03 AI capability map](docs/diagrams/03-ai-capability-map.md) | Every capability, its tier and its authority |
 
@@ -361,7 +361,7 @@ both is produced by work somebody was doing anyway.
 
 <p align="center">❦</p>
 
-## Where each requirement is answered
+## Where each judging criterion is answered
 
 | Criterion | Chapters |
 |---|---|
