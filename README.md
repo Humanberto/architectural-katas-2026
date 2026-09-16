@@ -13,11 +13,11 @@
 
 ## The problem
 
-The newly appointed 72nd Countess Von Digitalis needs a modern architecture to make the family estates profitable: ticketing (including family passes), understanding which parts of the park are popular, monitoring the health of 200+ exotic animals across 55 enclosures (including piranha population counts), and growing visitors from 5,000/day to 15,000/day within three years. Wifi is patchy, cloud is allowed, and there is budget for MQTT-capable devices across the park. The judges want a strong focus on how AI solves these problems.
+The newly appointed 72nd Countess Von Digitalis needs a modern architecture to make the family estates profitable: ticketing (including family passes), understanding which parts of the park are popular, monitoring the health of 200+ exotic animals across 55 enclosures (including piranha population counts), and growing visitors from 5,000/day to 15,000/day within three years. Wifi is patchy, cloud is allowed, and there is budget for MQTT-capable devices across the park. The brief asks for a strong focus on how AI solves these problems.
 
 Full brief: [`docs/kata-brief.pdf`](docs/kata-brief.pdf)
 
-## Deliverables (what the judges will read)
+## Deliverables
 
 | Deliverable | Where |
 |-------------|-------|
@@ -27,7 +27,7 @@ Full brief: [`docs/kata-brief.pdf`](docs/kata-brief.pdf)
 | (optional) Pertinent implementation details | [`docs/implementation.md`](docs/implementation.md) |
 | (semi-finalists) Five-minute video | link to be added |
 
-## Judging criteria
+## Evaluation criteria
 
 - Innovative use of AI in the solution(s)
 - Suitability of the solution given the constraints

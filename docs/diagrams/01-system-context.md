@@ -3,8 +3,6 @@
 Who uses the Von Digitalis systems, and what we depend on outside them. Shapes and
 colours are defined in the [key](README.md#the-key).
 
-Strawman — argue with it.
-
 ```mermaid
 flowchart TB
   visitor([Visitor])
@@ -55,7 +53,7 @@ The vet appears as an actor rather than a role inside the estate because
 [043](../adrs/043-welfare-loop.md) makes them the authority on what "unwell" means, and
 there is no vet on staff by default.
 
-## Open questions
+## Questions we would settle with the Countess
 
 - Are gate staff a distinct actor, or just keepers on a different shift?
 - Does a schools or groups booking channel need to appear separately?

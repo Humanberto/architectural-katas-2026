@@ -38,8 +38,8 @@ framing. They exist so starting is cheap, not to settle anything.
 
 ## What makes an ADR done
 
-- At least two rejected alternatives, and why each lost. Judges score trade-off analysis
-  explicitly, and an ADR that only states a decision scores nothing on it.
+- At least two rejected alternatives, and why each lost. The Countess is paying for
+  judgement, not conclusions, and an ADR that only states a decision shows none.
 - Numbers where numbers exist — thresholds, volumes, costs, limits.
 - Status moves from Proposed to Accepted at the cold read on Monday 14 September.
 
@@ -52,8 +52,8 @@ framing. They exist so starting is cheap, not to settle anything.
   `classDef` lines verbatim. If you need a shape or colour that is not in the key, add it
   to the key first.
 - Keep them simple: boxes, arrows, words. Fewer than about 25 nodes.
-- Reference every diagram from an ADR or `docs/overview.md`. Judges only see what is
-  linked.
+- Reference every diagram from an ADR or `docs/overview.md`. Only what is linked gets
+  read.
 
 ## Dates
 

@@ -1,9 +1,7 @@
 # 02. Container view
 
-The whole system on one page. This is the diagram judges will study, and the one most
-likely to be wrong. Shapes and colours are in the [key](README.md#the-key).
-
-Strawman — expect it to change twice.
+The whole system on one page. This is the picture the Countess and her managers will
+study longest, and the one most likely to be wrong. Shapes and colours are in the [key](README.md#the-key).
 
 ```mermaid
 flowchart TB
@@ -94,9 +92,8 @@ is what makes offline validation possible in
 The model gateway is the only thing that talks to model providers, per
 [020](../adrs/020-model-gateway.md). Nothing else does.
 
-## Known problems with this draft
+## Known limitations of this view
 
-- Twenty-four nodes and already crowded. Something probably has to go.
 - The keeper app should arguably sit on the estate, since keepers need it when the link
   is down.
 - Ride condition sensing is bundled into "enclosure and ride sensors". D may want it

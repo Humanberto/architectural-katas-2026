@@ -4,8 +4,6 @@ Every place AI appears, grouped by determinism tier, with where it runs and what
 allowed to do. This is the picture behind
 [011](../adrs/011-ai-determinism-tiers.md).
 
-Strawman — the capability list is a proposal, not a decision.
-
 ```mermaid
 flowchart TB
   rule[Use the lowest tier that works]
@@ -76,11 +74,11 @@ flowchart TB
 Seven of nine are Tier 1 or 2. Both Tier 3 capabilities only advise. Every Tier 1 and 2
 capability runs on the estate, so it survives a link failure and costs nothing per call.
 
-That is the answer to three judging criteria at once: AI uncertainty is confined to two
+That answers three of the Countess's hardest questions at once: AI uncertainty is confined to two
 capabilities behind one gateway; verification has a named mechanism in every row; and
 nothing non-deterministic holds authority over safety or money.
 
-## Open questions
+## Questions we would settle with the Countess
 
 - Is zone counting genuinely autonomous, or does "acts" overstate it? It produces
   numbers that inform staffing, which a human then decides.
