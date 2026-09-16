@@ -1,4 +1,6 @@
-# 023. AI cost control and graceful degradation
+# 022. Detecting AI misbehaviour in production
+
+**Go straight to:** [Home](../../README.md) · [ADRs](README.md) · [Diagrams](../diagrams/README.md) · [Implementation](../implementation.md) · [Requirements](../requirements.md) · [Characteristics](../architecture-characteristics.md) · [Brief](../kata-brief.pdf)
 
 ## Status
 
@@ -6,149 +8,157 @@ Accepted
 
 ## Context
 
-The estate is unprofitable (P1) and must become profitable or be sold up (P5). The brief
-is silent on budget beyond MQTT-capable devices, and we have agreed to treat that as the
-funded baseline and require anything further to be argued for (C14). Model providers
-change their pricing (C11).
+The brief asks specifically for detection of AI misbehaviour once in production ([R13](../requirements.md#requirements)),
+not merely testing before release. This is the harder half. A model that passed its gate
+in September can degrade in November without anything visibly breaking — no exception,
+no error rate, just worse answers.
 
-That combination makes AI running cost an architectural concern rather than a finance
-one. A capability whose cost scales with visitor numbers has a perverse property here:
-it gets more expensive exactly as the estate succeeds at growing from 5,000 to 15,000
-visitors a day (C8). A design that is affordable today and ruinous at target volume has
-failed.
+Three things can drift underneath us. The inputs change: a new species arrives, a ride
+reopens, a heatwave falls outside anything in the training data. The model changes: a
+provider updates it, or we switch it under [020](020-model-gateway.md). Or the world
+changes and the model is now answering a question nobody is asking.
 
-[011](011-ai-determinism-tiers.md) already does most of the work by keeping most
-capabilities in Tier 1 and Tier 2, which run on hardware already paid for. The residual
-exposure is Tier 3 and any cloud inference.
+Two features of this system help, and the design below uses both.
 
-Questions B will want to settle:
+The first is that a human already acts on most AI output. [043](043-welfare-loop.md)
+establishes that a keeper closes every welfare alert with an outcome — real, not real,
+or unclear. That disposition is a free, continuous accuracy measurement, because closing
+the alert has to happen anyway. The same pattern is available wherever a person acts on
+a model's suggestion.
 
-- What is the unit of budget? Cost per thousand visitors is proposed, because it stays
-  meaningful as volume grows, but B should decide.
-- Does every capability declare a ceiling, and who signs it off?
-- What happens when a ceiling is reached? Degrading the feature is very different from
-  disabling it, and each capability needs a stated fallback — what the concierge does
-  when it cannot call a model, what the copilot offers instead of an answer.
-- How much of the traffic is genuinely repeated? If most visitor questions are the same
-  forty questions about height restrictions and feeding times, caching changes the
-  economics entirely.
-- Is a cheap small model tried before an expensive large one, and who decides when to
-  escalate?
-- How do we notice a price rise within a day rather than at the end of the month?
+The second is that several capabilities have an independent physical ground truth that
+keeps reporting forever: admission totals from [012](012-admissions-and-ticketing.md)
+against zone counts from [045](045-presence-and-flow.md), a keeper's typed count against a camera's population estimate
+([046](046-count-reconciliation.md)), an inspection against
+a condition advisory. Divergence between the two is a detector that needs no labels.
 
-Worth stating plainly: a capability that cannot state its cost per thousand visitors
-should not ship. That is a strong claim and B should either adopt it or argue it down.
+Questions this record has to answer:
 
-Alternatives worth considering and rejecting explicitly: a single overall budget rather
-than per-capability ceilings; hard cut-off rather than degradation; and treating cost
-as a finance problem to be reviewed monthly rather than an architectural constraint.
+- What is measured, at what cadence, and where does it surface? A metric nobody looks at
+  is not detection.
+- What are the thresholds, and what does breaching one actually do — alert someone, or
+  automatically revert?
+- Is rollback a configuration change at the gateway or a deployment? How long does it
+  take?
+- Does a new model go out to everything at once, or to a slice first?
+- Who is on the receiving end of a drift alert, given [C13](../requirements.md#constraints) means there is nobody whose
+  job this is?
+
+There is a trap worth naming. It is easy to design monitoring that requires an ML
+engineer to interpret. This estate does not have one and will not hire one, so any
+signal that cannot be acted on by a generalist is decoration.
+
+Alternatives considered and rejected explicitly: periodic manual review rather
+than continuous monitoring; relying on user complaints as the detection mechanism; and
+full observability tooling that the estate cannot operate.
 
 ## Decision
 
-**The unit of budget is cost per 1,000 visitors, per capability.** It is the number
-proposed in the context, adopted as-is, because it is the one figure that stays
-meaningful across the whole three-year, 5,000-to-15,000 growth curve (C8, C9); an
-absolute monthly figure would need re-deriving at every stage of that growth and
-invites exactly the kind of drift this record exists to prevent.
+**Every capability generalises the disposition pattern [043](043-welfare-loop.md) already sets for welfare
+alerts: whoever acts on an AI output records whether it was right, wrong, or unclear,
+and that record is the primary drift signal — not a second monitoring system.** For
+Tier 1/2 capabilities this is nearly free, because a human already acts on the output
+(a keeper checking an alert, an inspector reading a ride advisory). For Tier 3, the
+equivalent disposition is: did the visitor's follow-up indicate the concierge answered
+the question, and did the ops user run the copilot's generated query as offered or
+edit it heavily first. Both are cheap to capture at the point of use.
 
-**Every Tier 3 capability declares a ceiling — a cost-per-1,000-visitors figure — in its
-gateway config from [020](020-model-gateway.md), before it ships.** B proposes the
-number at design time from the golden-set cost in [021](021-evaluating-ai-before-release.md)'s
-release gate; the operations-lead role signs it off, because there is no separate
-finance function here (C13) and the person who can switch a model version is the person
-who should own what that switch is allowed to cost. **A capability that cannot state
-this figure at design time does not ship.** The context proposes this as a strong claim
-to adopt or argue down; it is adopted, because the alternative is discovering the cost
-of a Tier 3 capability from the first invoice after launch, at exactly the visitor
-volumes C8 is trying to reach.
+**Where an independent physical ground truth exists, divergence from it is a second,
+label-free detector**, read continuously rather than only at release: admission totals
+against zone counts ([012](012-admissions-and-ticketing.md) vs [045](045-presence-and-flow.md)), the keeper's typed count against the camera's piranha
+population estimate ([046](046-count-reconciliation.md)). This needs no golden set and no human disposition — it is the
+same comparison [021](021-evaluating-ai-before-release.md)'s Tier 2 gate makes, just running forever instead of once.
 
-**Reaching the ceiling degrades the capability; it does not disable it.** Each
-capability has a stated ladder, not a cliff, reusing the fallback chain already declared
-in 020:
+**Metric, cadence, and threshold.** For every capability, a rolling 14-day
+false-positive/false-disposition rate is computed daily from the disposition log and
+compared to the rate the capability had when it passed its [021](021-evaluating-ai-before-release.md) gate. A rise of more
+than 10 percentage points above that baseline is a drift alert. Fourteen days is chosen
+to smooth over a single bad day without waiting so long that a real drift goes
+unnoticed for weeks.
 
-1. Serve from cache if the question or query matches a cached, still-valid answer.
-2. Try the cheaper model in the gateway's ranked list before the more expensive one;
-   escalate only if the cheap model fails its own fast confidence/grounding check from
-   021, not on a person's judgement call each time.
-3. If the ceiling is still reached, fall back to the Tier 1 static path already named in
-   020 — the FAQ decision tree for the concierge, the raw filter UI for the copilot.
-   Both pre-date the AI feature and depend on no provider, so "the budget ran out" is a
-   worse visitor experience, never an outage.
+**What breaching the threshold does differs by tier, and this is deliberate, not an
+oversight.**
 
-**Caching is treated as the primary lever, not an optimisation.** The brief's own
-framing — most visitor questions are a small repeated set about height restrictions and
-feeding times — is taken at face value: the concierge caches by canonicalised question
-plus the version of the grounding source it was answered from, invalidating only when
-that source changes. We target a majority of concierge traffic served from cache at
-target volume; without that, cost scales with visitors exactly as the context warns,
-and the capability becomes more expensive precisely as it succeeds.
+- Tier 1/2: alert-only, to a named person, because a human is already positioned
+  downstream of every one of these outputs and is the right party to judge what
+  changed.
+- Tier 3: the gateway automatically reverts the affected capability to its last
+  known-good model/prompt version — a configuration change per [020](020-model-gateway.md),
+  typically live within minutes — and *then* alerts. Tier 3 gets automatic rollback
+  because, unlike Tier 1/2, there is no vet-set limit or keeper's count standing
+  behind it if it goes wrong; the gateway's last-known-good pointer is the only safety
+  net available, so it is used immediately rather than waiting for a person to notice.
 
-**Price changes are detected same-day, by the same mechanism as
-[022](022-detecting-ai-misbehaviour.md), not discovered on an invoice.** The gateway's
-per-call log already carries actual cost per call (020); a daily job compares that
-day's mean cost per call against the trailing 7-day mean per capability, and a rise past
-a set percentage is a same-day alert to the operations lead — reusing 022's alerting
-path rather than building a second one.
+**Canary bake-in, set here and referenced by [020](020-model-gateway.md)**: a new Tier 3 version serves 10% of
+traffic for a minimum of 48 hours or 200 interactions before taking the rest, and drift
+detection runs on that slice with the same thresholds — a bad release is caught while it
+is still only a tenth of the exposure.
 
-Two alternatives were rejected beyond hard cut-off, which the context already names and
-which the degradation ladder above replaces directly.
+**Surfacing.** One weekly digest, not a dashboard: capability name, current disposition
+rate, baseline, and any breach in the last seven days, sent to whoever holds the
+operations-lead role from [020](020-model-gateway.md). A breach also sends an immediate
+message the day it happens; the digest is for the steady state, not the incident.
+Given [C13](../requirements.md#constraints), this is deliberately the only surface — a generalist can read seven lines
+once a week, and will not maintain a dashboard nobody assigned them to own.
 
-**A. A single overall AI budget rather than per-capability ceilings.** Rejected because
-a shared pool lets one capability's cost spike silently consume the other's headroom —
-the copilot could starve the concierge, or vice versa, with no signal until the pool is
-empty. Per-capability ceilings also map directly onto the degradation ladder each
-capability needs regardless of budget, so they cost nothing extra to maintain
-separately.
+Two alternatives were rejected beyond periodic manual review, which the context already
+correctly identifies as too slow to catch drift that develops over weeks between
+reviews.
 
-**B. Treating cost as a finance problem, reviewed monthly.** Rejected because C11 says
-provider prices move fast, and a monthly review discovers a price rise weeks after it
-happened, during which the estate has been paying it on every visitor. This is exactly
-the "discovered on the invoice" failure mode the context's background section warns
-against, restated as a review cadence rather than a design.
+**A. Relying on user complaints as the detection mechanism.** Rejected because it is
+biased toward the wrong failures: a concierge that answers confidently and wrongly is
+worse than one that visibly fails, and confident wrong answers are exactly the ones
+visitors are least likely to notice or report. The failure mode we most need to catch
+is the one this mechanism is worst at catching.
+
+**B. Full observability/APM tooling.** Rejected by [C13](../requirements.md#constraints) directly — it is built for
+someone whose job is reading it, and that role does not exist here. The weekly digest
+and the disposition log are deliberately smaller than what a well-resourced platform
+team would build, because a bigger system unused is worse than a smaller one that gets
+read.
 
 ## Consequences
 
 ### Positive
 
-- Cost per 1,000 visitors gives one comparable figure across capabilities and across the
-  whole growth curve, so "can we afford this at 15,000 visitors a day" is answerable at
-  design time rather than discovered at launch.
-- The degradation ladder means peak season — when the concierge and copilot are most
-  needed — is never the moment either gets switched off; it is the moment they get
-  cheaper and slightly less capable instead.
-- Same-day price-change detection reuses infrastructure 022 already requires, so this
-  record adds a comparison job, not a new system.
-- A capability that cannot state its cost does not ship — this keeps the estate from
-  ever operating a capability whose economics nobody actually checked.
+- Detection cost is close to zero for Tier 1/2, because it reuses work a person was
+  already doing ([043](043-welfare-loop.md)'s pattern, generalised).
+- Tier 3's automatic rollback means the worst case for a bad release is bounded to
+  roughly 48 hours of a 10% slice, not an open-ended production incident.
+- One digest, one recipient role, no dashboard to build or forget — matches [C13](../requirements.md#constraints).
+- The same disposition log that detects drift here is the evidence [021](021-evaluating-ai-before-release.md)'s audit-rate
+  ramp uses to decide whether a capability has earned a lighter release check.
 
 ### Negative
 
-- Caching a majority of concierge traffic assumes the "same forty questions" pattern the
-  brief suggests actually holds; if visitor questions turn out to be more varied than
-  expected, the cost model this record relies on weakens and the ceiling may need to be
-  set higher or the fallback triggered more often.
-- Per-capability ceilings mean B (or whoever holds the operations-lead role) is doing
-  small ongoing arithmetic — checking that the sum of ceilings is still something the
-  estate can afford — that a single pool would have done automatically. This is an
-  accepted manual step given C13 offers no finance function to own it otherwise.
-- Escalating from a cheap to an expensive model only on a failed confidence check means
-  some fraction of traffic pays for both calls; this is the price of not requiring a
-  person to decide per-request.
+- A capability with nobody acting on its output — nothing to disposition — has no free
+  signal and needs its ground-truth divergence check to carry the entire load, or it is
+  effectively unmonitored. This should be flagged explicitly for any future capability
+  that has neither.
+- Automatic rollback on Tier 3 can revert a genuinely good new version because of a
+  noisy 10% sample, especially early in a bake-in window; the 200-interaction floor is
+  a guess at a sample size that avoids most of this, not a proven one.
+- A 14-day baseline window means a slow, steady drift under 10 points a fortnight can
+  still creep past the threshold in small steps; this is a deliberate trade against
+  false alarms, and should be revisited if it proves too forgiving in practice.
 
 ### Assumptions
 
-- The operations-lead role has visibility into actual provider pricing, not just the
-  gateway's own log, so the daily comparison reflects reality and not a stale assumed
-  rate.
-- The initial ceilings B proposes at launch are estimates from golden-set cost, not
-  production traffic; they should be revisited against the first month of real usage
-  once the estate is live.
+- The operations-lead role from [020](020-model-gateway.md) is checked at least weekly; a digest nobody opens is
+  the same as no detection.
+- Fourteen days and ten percentage points are reasonable starting thresholds, not
+  validated ones — there is no production history yet to tune them against.
 
 ## Related
 
-- Diagram: [09 — Model gateway](../diagrams/09-model-gateway.md)
-- Implementation: [Cost](../implementation.md#cost-b)
-- [020](020-model-gateway.md) holds the ceiling config and the fallback chain this
-  degrades into
-- [012](012-admissions-and-ticketing.md) is the source of the visitor count in the
-  cost-per-1,000-visitors figure
+- Diagram: [10 — Evaluation and drift loop](../diagrams/10-evaluation-loop.md)
+- [043](043-welfare-loop.md) is the origin of the disposition pattern this generalises
+- [020](020-model-gateway.md) executes the automatic revert on a Tier 3 breach
+- [021](021-evaluating-ai-before-release.md) covers the same capability before release
+- [045](045-presence-and-flow.md) and [046](046-count-reconciliation.md) supply the ground truths the divergence detector reads
+
+---
+
+<p align="center">❦</p>
+
+<p align="right"><a href="#022-detecting-ai-misbehaviour-in-production">↑ Back to top</a> · <a href="../../README.md">Home</a> · <a href="README.md">All ADRs</a> · <a href="../diagrams/README.md">All diagrams</a></p>
