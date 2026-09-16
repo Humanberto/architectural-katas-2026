@@ -1,11 +1,13 @@
-# Implementation details (optional)
+# Implementation details
 
 **Go straight to:** [Home](../README.md) · [ADRs](adrs/README.md) · [Diagrams](diagrams/README.md) · [Implementation](implementation.md) · [Requirements](requirements.md) · [Characteristics](architecture-characteristics.md) · [Brief](kata-brief.pdf)
 
-_Pertinent implementation details. Sections below are owned per seat, per [roles.md](roles.md); each
-seat writes its own._
+This page goes to code level on the three places where a decision is only as good as its
+mechanics: how a model is proved before release, what it is allowed to cost, and what travels
+across the estate. Everything else in this repository is an architectural decision; these are
+the artefacts that make those decisions checkable.
 
-## Evaluation (B)
+## Evaluation
 
 Implements [021](adrs/021-evaluating-ai-before-release.md) and
 [022](adrs/022-detecting-ai-misbehaviour.md). See
@@ -44,7 +46,7 @@ No citation, no pass — this needs no judgement call.
 consecutive releases with zero audit findings drops that capability's human-audit
 sample from 100% to 20% for its next release, per [021](adrs/021-evaluating-ai-before-release.md). One finding resets it to 100%.
 
-## Cost (B)
+## Cost
 
 Implements [023](adrs/023-ai-cost-control.md) and the pricing half of
 [020](adrs/020-model-gateway.md). See [diagram 09](diagrams/09-model-gateway.md).
@@ -96,8 +98,55 @@ on request(capability, input):
 per call today against its trailing 7-day mean. A rise past a set percentage raises the
 same alert used by [022](adrs/022-detecting-ai-misbehaviour.md)'s drift digest — one alerting path, not two.
 
+## Telemetry
+
+Implements [042](adrs/042-telemetry-model.md), carried by
+[041](adrs/041-hybrid-transport.md). See [diagram 04](diagrams/04-edge-connectivity.md).
+
+**Topic tree.** Five shapes cover the whole estate:
+
+```
+estate/enclosure/{enclosure_id}/{measure}
+estate/enclosure/{enclosure_id}/status
+estate/ride/{ride_id}/{measure}
+estate/gate/{gate_id}/footfall
+estate/gateway/{gateway_id}/status
+```
+
+Segments are lowercase hyphenated nouns, never display names, because display names change
+and topics should not. An `{enclosure_id}` is fixed for the life of the enclosure and never
+reused, since reuse silently merges the history of two unrelated habitats. Each topic carries
+one measurement, so a consumer subscribes to `estate/enclosure/+/water-temp` and reaches all
+55 enclosures without listing any of them. Adding an enclosure or a measure is additive and
+nothing already subscribed has to change.
+
+**Delivery guarantee per stream.** The rule is recoverability, not importance — a lost sample
+from a continuous stream is replaced within minutes, a lost discrete event is gone for good:
+
+| QoS | Streams | Why |
+|---|---|---|
+| 0, at most once | Water and air temperature, dissolved oxygen, pH, ammonia, nitrite, nitrate, filter flow, humidity, activity, turbidity, levels | Another reading follows within 1 to 15 minutes |
+| 1, at least once | Feed dispensed, feed remaining, containment change, lamp state change, threshold alarms, gateway online and offline | Singular and impossible to reconstruct. Duplicates are tolerable, loss is not |
+| 2, exactly once | Not used | The extra handshake is not worth its cost on a constrained uplink. Where exactly-once behaviour is genuinely needed, publishers attach an idempotency key and consumers discard repeats |
+
+A temperature reading goes out at QoS 0; the alarm raised because that reading crossed a
+threshold goes out at QoS 1 on `estate/enclosure/{id}/alarm`. The raw stream stays cheap while
+the signal that matters is guaranteed.
+
+**Retained status, unretained measurements.** Status topics are published with the retained
+flag set, so a keeper's tablet receives the current state of all 55 enclosures the moment it
+subscribes — no database query and no round trip to the cloud. Measurement topics are not
+retained, because a retained reading looks current when it is hours old, and a stale value
+presented as live is more dangerous than a visible gap.
+
+**Sensor liveness.** Every publishing device registers a last will and testament on its status
+topic, so a device that disconnects without saying goodbye has `offline` published on its
+behalf. This is what separates "nothing to report" from "nothing is reporting": a dead sensor
+and a healthy animal in a stable enclosure otherwise produce identical data, which is to say
+none at all.
+
 ---
 
 <p align="center">❦</p>
 
-<p align="right"><a href="#implementation-details-optional">↑ Back to top</a> · <a href="../README.md">Home</a> · <a href="adrs/README.md">All ADRs</a> · <a href="diagrams/README.md">All diagrams</a></p>
+<p align="right"><a href="#implementation-details">↑ Back to top</a> · <a href="../README.md">Home</a> · <a href="adrs/README.md">All ADRs</a> · <a href="diagrams/README.md">All diagrams</a></p>

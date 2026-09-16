@@ -17,15 +17,11 @@ To edit one, edit the fenced block. To add one, copy an existing file.
 | [04 Edge connectivity](04-edge-connectivity.md) | Brokers, buffering, and what survives a partition | [040](../adrs/040-connectivity-topology.md), [041](../adrs/041-hybrid-transport.md) |
 | [05 Welfare monitoring](05-welfare-monitoring.md) | Enclosure sensors through to a keeper acting on an alert | [043](../adrs/043-welfare-loop.md) |
 | [06 Presence and flow](06-presence-and-flow.md) | Counting visitors without identifying one | [045](../adrs/045-presence-and-flow.md) |
-| 07 Ride condition **[add or remove]** | Sensing, advisory, and the inspection boundary | [060](../adrs/060-ride-condition-monitoring.md) |
-| 08 Concierge offline behaviour **[add or remove]** | What is cached at the gate, and what needs a signal | [062](../adrs/062-visitor-concierge.md) |
+| [07 Ride condition](07-ride-condition.md) | Sensing, advisory, and the inspection boundary | [060](../adrs/060-ride-condition-monitoring.md) |
+| [08 Concierge offline behaviour](08-concierge-offline.md) | What answers with no signal, and what needs the uplink | [062](../adrs/062-visitor-concierge.md), [020](../adrs/020-model-gateway.md) |
 | [09 Model gateway](09-model-gateway.md) | How a capability request is routed, and how a model is replaced | [020](../adrs/020-model-gateway.md) |
 | [10 Evaluation and drift loop](10-evaluation-loop.md) | Gates before release, and detection afterwards | [021](../adrs/021-evaluating-ai-before-release.md), [022](../adrs/022-detecting-ai-misbehaviour.md) |
 | [11 Pass lifecycle](11-pass-lifecycle.md) | Every state a pass moves through, and what a gate does in each | [013](../adrs/013-pass-lifecycle.md) |
-
-Rows marked **[add or remove]** do not exist yet. Before we submit, either the diagram
-lands or the row comes out — an index that promises a picture nobody can open is worse
-than a shorter index.
 
 Start with 02 for the shape of the system and 03 for where AI sits inside it. The rest
 are targeted views of one capability each.
